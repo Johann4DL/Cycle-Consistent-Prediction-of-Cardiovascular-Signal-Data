@@ -1,9 +1,7 @@
 # Master_thesis
  Cycle GAN for timeseries data
  
- For now, we use fake data (sine and cosine data) to test the model
+ The Generator and Discriminator were first tested on sin and cosine data, refer to sin_&_cos_data.ipynb
  
- To do: Plot the Generator loss in a different plot as the other losses [train losses]
- 
-        Plot the test losses
+In Cycle_GAN.ipynb we train on real data
  	
