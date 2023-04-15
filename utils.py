@@ -22,7 +22,7 @@ def load_checkpoint(checkpoint_file, model, optimizer, lr):
     for param_group in optimizer.param_groups:
         param_group["lr"] = lr
 
-def save_predictions(loader, gen_A2B, gen_B2A, fake_A, fake_B, DEVICE, mse):
+def save_predictions(loader, gen_A2B, gen_B2A, DEVICE):
     for sig_A, sig_B in loader:
         #convert to float16
         sig_A = sig_A.float()
@@ -42,9 +42,9 @@ def save_predictions(loader, gen_A2B, gen_B2A, fake_A, fake_B, DEVICE, mse):
         sig_B = sig_B.reshape(-1)
 
         #calculate mse loss of fake signals and real signals
-        mse_G_A2B = mse(fake_B, sig_B)
-        mse_G_B2A = mse(fake_A, sig_A)
-        print('MSE G_A2B: {:.4f}, MSE G_B2A: {:.4f}'.format(mse_G_A2B.item(), mse_G_B2A.item()))
+        #mse_G_A2B = mse(fake_B, sig_B)
+        #mse_G_B2A = mse(fake_A, sig_A)
+        #print('MSE G_A2B: {:.4f}, MSE G_B2A: {:.4f}'.format(mse_G_A2B.item(), mse_G_B2A.item()))
 
         #save generated signals as csv in one file
         df = pd.DataFrame({'sig_A': sig_A.cpu().numpy(), 'fake_A': fake_A.cpu().numpy(), 
