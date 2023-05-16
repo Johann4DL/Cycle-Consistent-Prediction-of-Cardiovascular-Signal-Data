@@ -9,6 +9,17 @@ def double_conv_pad(in_channels, out_channels):
         nn.LeakyReLU(inplace=True)
     )
 
+def triple_conv_pad(in_channels, out_channels):
+    return nn.Sequential(
+        nn.Conv1d(in_channels, out_channels, kernel_size=3, padding=1, padding_mode='zeros'),
+        nn.LeakyReLU(inplace=True),
+        nn.Conv1d(out_channels, out_channels, kernel_size=3, padding=1, padding_mode='zeros'),
+        nn.LeakyReLU(inplace=True),
+        nn.Conv1d(out_channels, out_channels, kernel_size=3, padding=1, padding_mode='zeros'),
+        nn.LeakyReLU(inplace=True)
+    )
+
+
 # This one has skip connections
 class OneChannelUnetGenerator(nn.Module):
     def __init__(self):
@@ -144,8 +155,9 @@ class EmbeddingUnetGenerator(nn.Module):
         self.down_conv3 = double_conv_pad(64, 128)
         self.down_conv4 = double_conv_pad(128, 256)
 
-        self.embedding = torch.nn.Embedding(num_embeddings=5, embedding_dim=32)
-
+        self.embedding = torch.nn.Embedding(num_embeddings=11, embedding_dim=32)  # if num_embeddings < 11 I get an error, even though
+                                                                                  # there are only 9 different interventions
+        
         self.up_trans1 = nn.ConvTranspose1d(256, 128, kernel_size=(2), stride=2, padding=0)
         self.up_conv1 = double_conv_pad(256, 128)
         self.up_trans2 = nn.ConvTranspose1d(128, 64, kernel_size=(2), stride=2, padding=0)
@@ -155,7 +167,7 @@ class EmbeddingUnetGenerator(nn.Module):
 
         self.out = nn.Conv1d(32, OUTPUTCHANNELS, kernel_size=1) # kernel_size must be == 1
 
-    def forward(self, input, phase):
+    def forward(self, input, intervention):
         # [Batch size, Channels in, Height, Width]
         
         # downsampling
@@ -163,13 +175,13 @@ class EmbeddingUnetGenerator(nn.Module):
         x2 = self.maxpool(x1) 
         x3 = self.down_conv2(x2)  
         x4 = self.maxpool(x3) 
-        x5 = self.down_conv3(x4)  
+        x5 = self.down_conv3(x4) 
         x6 = self.maxpool(x5) 
         x7 = self.down_conv4(x6)
 
         # upsampling
-        e = self.embedding(phase)
-        x7 = x7 + e
+        e = self.embedding(intervention)
+        x7 = x7 + e                               # The phase embedding is added during upsampling
         x = self.up_trans1(x7)
         x = self.up_conv1(torch.cat([x, x5], 1))  # skip connection
         x = self.up_trans2(x)

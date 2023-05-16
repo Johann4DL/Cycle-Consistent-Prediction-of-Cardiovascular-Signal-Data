@@ -105,7 +105,7 @@ class AnimalDatasetEmbedding(torch.utils.data.Dataset):
         # extract features
         input_df = animal_df[self.feature_names]
         target_df = animal_df[self.target_name]
-        phase_df = animal_df["Phasenzuordnung"]
+        phase_df = animal_df["Phasenzuordnung"]   # mit 'Phasenzuordnung' klappt es
         
         # to torch
         inputs = torch.tensor(input_df.to_numpy()).permute(1, 0)

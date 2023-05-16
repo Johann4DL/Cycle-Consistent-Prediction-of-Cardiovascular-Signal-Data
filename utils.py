@@ -69,7 +69,7 @@ def drop_cols(df):
     '''
     df = df.drop(columns=['Time',  'RVP', 'PaP', 'PaQ', 'ECGcond', 'Looperkennung', 'Extrasystolen', 'Ansaugphase', 'ECG', 'ECGcond', 'LVV1', 'LVV2', 
                       'LVV3', 'LVV4', 'LVV5', 'RVV1', 'RVV2', 'RVV3', 'RVV4', 'RVV5', 'Versuchsdatum', 'rep_an', 'rep_sect', 'contractility', 
-                      'preload', 'afterload', 'controller'])
+                      'preload', 'afterload', 'controller'])  # 'VADspeed', 'LVtot', 'RVtot', 'AoQ'
     return df
 
 
@@ -78,8 +78,10 @@ def remove_strings(df):
     Removes all strings that remain after dropping all unrelevant columns in the data. Works only if you called 'drop_cols' first
     '''
 
-    df_cols = df_cols = ['LVtot_kalibriert', 'LVP', 'AoP', 'AoQ', 'RVtot_kalibriert', 'VADspeed', 'VadQ', 'VADcurrent', 'Phasenzuordnung', 
+    df_cols = ['LVtot_kalibriert', 'LVP', 'AoP', 'AoQ', 'RVtot_kalibriert', 'VADspeed', 'VadQ', 'VADcurrent', 'Phasenzuordnung', 
             'LVtot', 'RVtot', 'animal', 'intervention']
+    
+    # df_cols = ['LVtot_kalibriert', 'LVP', 'AoP', 'RVtot_kalibriert', 'VadQ', 'VADcurrent', 'Phasenzuordnung', 'animal', 'intervention']
 
     df = df.to_numpy() # convert to numpy
 
@@ -114,40 +116,67 @@ def subsample(df, rate):
     '''
     columns = ['LVtot_kalibriert', 'LVP', 'AoP', 'AoQ', 'RVtot_kalibriert', 'VADspeed', 'VadQ', 
             'VADcurrent', 'Phasenzuordnung', 'LVtot', 'RVtot', 'animal', 'intervention']
+    # columns = ['LVtot_kalibriert', 'LVP', 'AoP', 'RVtot_kalibriert', 'VadQ', 'VADcurrent', 'Phasenzuordnung', 'animal', 'intervention']
+    
 
     arr = df.to_numpy()
     arr = groupedAvg(arr, N=rate)
     df = pd.DataFrame(arr, columns=columns)
     df['animal'] = df['animal'].astype(int)
+    df['Phasenzuordnung'] = df['Phasenzuordnung'].astype(int)
     df['intervention'] = df['intervention'].astype(int)
+    df['intervention'] = df['intervention'].astype(float)
     return df
 
-def normalize(df):
-    # intervntion, Phasenzuordnung and animal should be in another dataframe before the data is normalized
-    df_IPA = df[['intervention', 'Phasenzuordnung', 'animal']]
-    df = df.drop(columns=['intervention', 'Phasenzuordnung', 'animal'])  # drop columns in original dataframe
+# def normalize(df):
+#     # intervntion, Phasenzuordnung and animal should be in another dataframe before the data is normalized
+#     df_IPA = df[['intervention', 'Phasenzuordnung', 'animal']]
+#     df = df.drop(columns=['intervention', 'Phasenzuordnung', 'animal'])  # drop columns in original dataframe
 
-    df_cols = ['LVtot_kalibriert', 'LVP', 'AoP', 'AoQ', 'RVtot_kalibriert', 'VADspeed', 'VadQ', 'VADcurrent', 'LVtot', 'RVtot']
+#     df_cols = ['LVtot_kalibriert', 'LVP', 'AoP', 'AoQ', 'RVtot_kalibriert', 'VADspeed', 'VadQ', 'VADcurrent', 'LVtot', 'RVtot']
+#     # df_cols = ['LVtot_kalibriert', 'LVP', 'AoP', 'RVtot_kalibriert', 'VadQ', 'VADcurrent']
+#     df = df.to_numpy()  #convert to numpy
+
+#     # scale the data
+#     scaler = StandardScaler()
+#     scaler.fit(df)
+#     transformed_data = scaler.transform(df)
+#     df = pd.DataFrame(transformed_data, columns=df_cols)  # convert to dataframe
+#     df = pd.concat([df, df_IPA], axis=1) # add the drpped columns again
+#     return df
+
+def normalize(df, scaler):
+    # intervntion, Phasenzuordnung and animal should be in another dataframe before the data is normalized
+    # df_IPA = df[['intervention', 'Phasenzuordnung', 'animal']]
+    # df = df.drop(columns=['intervention', 'Phasenzuordnung', 'animal'])  # drop columns in original dataframe
+
+    #df_cols = ['LVtot_kalibriert', 'LVP', 'AoP', 'AoQ', 'RVtot_kalibriert', 'VADspeed', 'VadQ', 'VADcurrent', 'LVtot', 'RVtot']
+    # df_cols = ['LVtot_kalibriert', 'LVP', 'AoP', 'RVtot_kalibriert', 'VadQ', 'VADcurrent']
+    # column names
+    cols = df.columns.tolist()
     df = df.to_numpy()  #convert to numpy
 
     # scale the data
-    scaler = StandardScaler()
     scaler.fit(df)
     transformed_data = scaler.transform(df)
-    df = pd.DataFrame(transformed_data, columns=df_cols)  # convert to dataframe
-    df = pd.concat([df, df_IPA], axis=1) # add the drpped columns again
+    df = pd.DataFrame(transformed_data, columns=cols)  # convert to dataframe
+    # df = df.join(df_IPA) 
     return df
 
-def visualize(df, var1, var2, var3, var4, length):
-    fig, axs = plt.subplots(4, 1, figsize=(20, 10))
-    axs[0].plot(df[var1][:length])
-    axs[0].set_title(var1)
-    axs[1].plot(df[var2][:length])
-    axs[1].set_title(var2)
-    axs[2].plot(df[var3][:length])
-    axs[2].set_title(var3)
-    axs[3].plot(df[var4][:length])
-    axs[3].set_title(var4)
+def visualize(df, variables, length):
+    fig, axs = plt.subplots(len(variables), 1, figsize=(20, 10))
+    axs[0].plot(df[variables[0]][:length])
+    axs[0].set_title(variables[0])
+    axs[1].plot(df[variables[1]][:length])
+    axs[1].set_title(variables[1])
+    axs[2].plot(df[variables[2]][:length])
+    axs[2].set_title(variables[2])
+    axs[3].plot(df[variables[3]][:length])
+    axs[3].set_title(variables[3])
+    axs[4].plot(df[variables[4]][:length])
+    axs[4].set_title(variables[4])
+    axs[5].plot(df[variables[5]][:length])
+    axs[5].set_title(variables[5])
     plt.show()
 
 
