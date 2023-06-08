@@ -33,18 +33,29 @@ class OneChannelDiscriminator(nn.Module):
     def forward(self, x):
         x = self.initial(x)
         return torch.sigmoid(self.model(x))
-    
+
+
+def Conv_block(in_channels, out_channels, kernel_size , stride):
+    return nn.Sequential(
+        nn.Conv1d(in_channels, out_channels, kernel_size, stride),
+        nn.BatchNorm1d(out_channels),
+        nn.LeakyReLU(inplace=True),
+        nn.Dropout1d(p=0.1, inplace=False),
+    )
+
+
 class MultiChannelDiscriminator(nn.Module):
     def __init__(self, CHANNELS):
         super(MultiChannelDiscriminator, self).__init__()
         
-        self.conv1 = nn.Conv1d(in_channels= CHANNELS, out_channels= 32, kernel_size = 3, stride = 2, padding =1)
-        self.conv2 = nn.Conv1d(in_channels= 32, out_channels= 64, kernel_size = 3, stride = 2, padding =1)
-        self.conv3 = nn.Conv1d(in_channels= 64, out_channels= 128, kernel_size = 3, stride = 2, padding =1)
-        self.conv4 = nn.Conv1d(in_channels= 128, out_channels= 256, kernel_size = 3, stride = 2, padding =1)
-        self.conv5 = nn.Conv1d(in_channels= 256, out_channels= 1, kernel_size = 3, stride = 2, padding =1)
+        self.conv1 = Conv_block(in_channels= CHANNELS, out_channels= 32, kernel_size = 3, stride = 2) # remove padding
+        self.conv2 = Conv_block(in_channels= 32, out_channels= 64, kernel_size = 3, stride = 2)
+        self.conv3 = Conv_block(in_channels= 64, out_channels= 128, kernel_size = 3, stride = 2)
+        self.conv4 = Conv_block(in_channels= 128, out_channels= 256, kernel_size = 3, stride = 2)
+        self.conv5 = Conv_block(in_channels= 256, out_channels= 1, kernel_size = 3, stride = 2)
         
         self.out = nn.Sigmoid()
+        # self.out = nn.BCEWithLogitsLoss()
 
 
     def forward(self, input):

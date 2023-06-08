@@ -1,0 +1,148 @@
+
+
+
+
+
+
+
+
+
+
+ 45%|████▌     | 9/20 [01:34<01:51, 10.11s/it]/home/johann/anaconda3/envs/pytorch/lib/python3.9/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([512, 1, 256])) that is different to the input size (torch.Size([512, 3, 256])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+  return F.l1_loss(input, target, reduction=self.reduction)
+/home/johann/anaconda3/envs/pytorch/lib/python3.9/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([512, 3, 256])) that is different to the input size (torch.Size([512, 1, 256])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+  return F.l1_loss(input, target, reduction=self.reduction)
+/home/johann/anaconda3/envs/pytorch/lib/python3.9/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([512, 1, 256])) that is different to the input size (torch.Size([512, 3, 256])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+  return F.l1_loss(input, target, reduction=self.reduction)
+/home/johann/anaconda3/envs/pytorch/lib/python3.9/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([512, 3, 256])) that is different to the input size (torch.Size([512, 1, 256])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+  return F.l1_loss(input, target, reduction=self.reduction)
+/home/johann/anaconda3/envs/pytorch/lib/python3.9/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([512, 1, 256])) that is different to the input size (torch.Size([512, 3, 256])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+  return F.l1_loss(input, target, reduction=self.reduction)
+/home/johann/anaconda3/envs/pytorch/lib/python3.9/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([512, 3, 256])) that is different to the input size (torch.Size([512, 1, 256])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+  return F.l1_loss(input, target, reduction=self.reduction)
+/home/johann/anaconda3/envs/pytorch/lib/python3.9/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([512, 1, 256])) that is different to the input size (torch.Size([512, 3, 256])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+  return F.l1_loss(input, target, reduction=self.reduction)
+/home/johann/anaconda3/envs/pytorch/lib/python3.9/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([512, 3, 256])) that is different to the input size (torch.Size([512, 1, 256])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+  return F.l1_loss(input, target, reduction=self.reduction)
+/home/johann/anaconda3/envs/pytorch/lib/python3.9/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([512, 1, 256])) that is different to the input size (torch.Size([512, 3, 256])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+  return F.l1_loss(input, target, reduction=self.reduction)
+/home/johann/anaconda3/envs/pytorch/lib/python3.9/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([512, 3, 256])) that is different to the input size (torch.Size([512, 1, 256])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+  return F.l1_loss(input, target, reduction=self.reduction)
+/home/johann/anaconda3/envs/pytorch/lib/python3.9/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([512, 1, 256])) that is different to the input size (torch.Size([512, 3, 256])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+  return F.l1_loss(input, target, reduction=self.reduction)
+/home/johann/anaconda3/envs/pytorch/lib/python3.9/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([512, 3, 256])) that is different to the input size (torch.Size([512, 1, 256])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+  return F.l1_loss(input, target, reduction=self.reduction)
+/home/johann/anaconda3/envs/pytorch/lib/python3.9/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([512, 1, 256])) that is different to the input size (torch.Size([512, 3, 256])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+  return F.l1_loss(input, target, reduction=self.reduction)
+/home/johann/anaconda3/envs/pytorch/lib/python3.9/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([512, 3, 256])) that is different to the input size (torch.Size([512, 1, 256])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+  return F.l1_loss(input, target, reduction=self.reduction)
+/home/johann/anaconda3/envs/pytorch/lib/python3.9/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([512, 1, 256])) that is different to the input size (torch.Size([512, 3, 256])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+  return F.l1_loss(input, target, reduction=self.reduction)
+/home/johann/anaconda3/envs/pytorch/lib/python3.9/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([512, 3, 256])) that is different to the input size (torch.Size([512, 1, 256])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+  return F.l1_loss(input, target, reduction=self.reduction)
+/home/johann/anaconda3/envs/pytorch/lib/python3.9/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([512, 1, 256])) that is different to the input size (torch.Size([512, 3, 256])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+  return F.l1_loss(input, target, reduction=self.reduction)
+/home/johann/anaconda3/envs/pytorch/lib/python3.9/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([512, 3, 256])) that is different to the input size (torch.Size([512, 1, 256])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+  return F.l1_loss(input, target, reduction=self.reduction)
+/home/johann/anaconda3/envs/pytorch/lib/python3.9/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([512, 1, 256])) that is different to the input size (torch.Size([512, 3, 256])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+  return F.l1_loss(input, target, reduction=self.reduction)
+/home/johann/anaconda3/envs/pytorch/lib/python3.9/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([512, 3, 256])) that is different to the input size (torch.Size([512, 1, 256])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+  return F.l1_loss(input, target, reduction=self.reduction)
+/home/johann/anaconda3/envs/pytorch/lib/python3.9/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([512, 1, 256])) that is different to the input size (torch.Size([512, 3, 256])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+  return F.l1_loss(input, target, reduction=self.reduction)
+/home/johann/anaconda3/envs/pytorch/lib/python3.9/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([512, 3, 256])) that is different to the input size (torch.Size([512, 1, 256])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+  return F.l1_loss(input, target, reduction=self.reduction)
+/home/johann/anaconda3/envs/pytorch/lib/python3.9/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([512, 1, 256])) that is different to the input size (torch.Size([512, 3, 256])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+  return F.l1_loss(input, target, reduction=self.reduction)
+/home/johann/anaconda3/envs/pytorch/lib/python3.9/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([512, 3, 256])) that is different to the input size (torch.Size([512, 1, 256])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+  return F.l1_loss(input, target, reduction=self.reduction)
+/home/johann/anaconda3/envs/pytorch/lib/python3.9/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([512, 1, 256])) that is different to the input size (torch.Size([512, 3, 256])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+  return F.l1_loss(input, target, reduction=self.reduction)
+/home/johann/anaconda3/envs/pytorch/lib/python3.9/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([512, 3, 256])) that is different to the input size (torch.Size([512, 1, 256])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+  return F.l1_loss(input, target, reduction=self.reduction)
+/home/johann/anaconda3/envs/pytorch/lib/python3.9/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([25, 1, 256])) that is different to the input size (torch.Size([25, 3, 256])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+  return F.l1_loss(input, target, reduction=self.reduction)
+/home/johann/anaconda3/envs/pytorch/lib/python3.9/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([25, 3, 256])) that is different to the input size (torch.Size([25, 1, 256])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+  return F.l1_loss(input, target, reduction=self.reduction)
+
+
+
+
+
+
+
+
+
+ 95%|█████████▌| 19/20 [03:38<00:12, 12.78s/it]/home/johann/anaconda3/envs/pytorch/lib/python3.9/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([512, 1, 256])) that is different to the input size (torch.Size([512, 3, 256])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+  return F.l1_loss(input, target, reduction=self.reduction)
+/home/johann/anaconda3/envs/pytorch/lib/python3.9/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([512, 3, 256])) that is different to the input size (torch.Size([512, 1, 256])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+  return F.l1_loss(input, target, reduction=self.reduction)
+/home/johann/anaconda3/envs/pytorch/lib/python3.9/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([512, 1, 256])) that is different to the input size (torch.Size([512, 3, 256])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+  return F.l1_loss(input, target, reduction=self.reduction)
+/home/johann/anaconda3/envs/pytorch/lib/python3.9/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([512, 3, 256])) that is different to the input size (torch.Size([512, 1, 256])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+  return F.l1_loss(input, target, reduction=self.reduction)
+/home/johann/anaconda3/envs/pytorch/lib/python3.9/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([512, 1, 256])) that is different to the input size (torch.Size([512, 3, 256])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+  return F.l1_loss(input, target, reduction=self.reduction)
+/home/johann/anaconda3/envs/pytorch/lib/python3.9/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([512, 3, 256])) that is different to the input size (torch.Size([512, 1, 256])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+  return F.l1_loss(input, target, reduction=self.reduction)
+/home/johann/anaconda3/envs/pytorch/lib/python3.9/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([512, 1, 256])) that is different to the input size (torch.Size([512, 3, 256])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+  return F.l1_loss(input, target, reduction=self.reduction)
+/home/johann/anaconda3/envs/pytorch/lib/python3.9/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([512, 3, 256])) that is different to the input size (torch.Size([512, 1, 256])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+  return F.l1_loss(input, target, reduction=self.reduction)
+/home/johann/anaconda3/envs/pytorch/lib/python3.9/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([512, 1, 256])) that is different to the input size (torch.Size([512, 3, 256])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+  return F.l1_loss(input, target, reduction=self.reduction)
+/home/johann/anaconda3/envs/pytorch/lib/python3.9/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([512, 3, 256])) that is different to the input size (torch.Size([512, 1, 256])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+  return F.l1_loss(input, target, reduction=self.reduction)
+/home/johann/anaconda3/envs/pytorch/lib/python3.9/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([512, 1, 256])) that is different to the input size (torch.Size([512, 3, 256])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+  return F.l1_loss(input, target, reduction=self.reduction)
+/home/johann/anaconda3/envs/pytorch/lib/python3.9/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([512, 3, 256])) that is different to the input size (torch.Size([512, 1, 256])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+  return F.l1_loss(input, target, reduction=self.reduction)
+/home/johann/anaconda3/envs/pytorch/lib/python3.9/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([512, 1, 256])) that is different to the input size (torch.Size([512, 3, 256])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+  return F.l1_loss(input, target, reduction=self.reduction)
+/home/johann/anaconda3/envs/pytorch/lib/python3.9/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([512, 3, 256])) that is different to the input size (torch.Size([512, 1, 256])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+  return F.l1_loss(input, target, reduction=self.reduction)
+/home/johann/anaconda3/envs/pytorch/lib/python3.9/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([512, 1, 256])) that is different to the input size (torch.Size([512, 3, 256])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+  return F.l1_loss(input, target, reduction=self.reduction)
+/home/johann/anaconda3/envs/pytorch/lib/python3.9/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([512, 3, 256])) that is different to the input size (torch.Size([512, 1, 256])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+  return F.l1_loss(input, target, reduction=self.reduction)
+/home/johann/anaconda3/envs/pytorch/lib/python3.9/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([512, 1, 256])) that is different to the input size (torch.Size([512, 3, 256])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+  return F.l1_loss(input, target, reduction=self.reduction)
+/home/johann/anaconda3/envs/pytorch/lib/python3.9/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([512, 3, 256])) that is different to the input size (torch.Size([512, 1, 256])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+  return F.l1_loss(input, target, reduction=self.reduction)
+/home/johann/anaconda3/envs/pytorch/lib/python3.9/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([512, 1, 256])) that is different to the input size (torch.Size([512, 3, 256])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+  return F.l1_loss(input, target, reduction=self.reduction)
+/home/johann/anaconda3/envs/pytorch/lib/python3.9/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([512, 3, 256])) that is different to the input size (torch.Size([512, 1, 256])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+  return F.l1_loss(input, target, reduction=self.reduction)
+/home/johann/anaconda3/envs/pytorch/lib/python3.9/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([512, 1, 256])) that is different to the input size (torch.Size([512, 3, 256])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+  return F.l1_loss(input, target, reduction=self.reduction)
+/home/johann/anaconda3/envs/pytorch/lib/python3.9/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([512, 3, 256])) that is different to the input size (torch.Size([512, 1, 256])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+  return F.l1_loss(input, target, reduction=self.reduction)
+/home/johann/anaconda3/envs/pytorch/lib/python3.9/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([512, 1, 256])) that is different to the input size (torch.Size([512, 3, 256])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+  return F.l1_loss(input, target, reduction=self.reduction)
+/home/johann/anaconda3/envs/pytorch/lib/python3.9/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([512, 3, 256])) that is different to the input size (torch.Size([512, 1, 256])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+  return F.l1_loss(input, target, reduction=self.reduction)
+Generate fake signals
+Training finished
+/home/johann/anaconda3/envs/pytorch/lib/python3.9/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([512, 1, 256])) that is different to the input size (torch.Size([512, 3, 256])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+  return F.l1_loss(input, target, reduction=self.reduction)
+/home/johann/anaconda3/envs/pytorch/lib/python3.9/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([512, 3, 256])) that is different to the input size (torch.Size([512, 1, 256])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+  return F.l1_loss(input, target, reduction=self.reduction)
+/home/johann/anaconda3/envs/pytorch/lib/python3.9/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([25, 1, 256])) that is different to the input size (torch.Size([25, 3, 256])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+  return F.l1_loss(input, target, reduction=self.reduction)
+/home/johann/anaconda3/envs/pytorch/lib/python3.9/site-packages/torch/nn/modules/loss.py:101: UserWarning: Using a target size (torch.Size([25, 3, 256])) that is different to the input size (torch.Size([25, 1, 256])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+  return F.l1_loss(input, target, reduction=self.reduction)
+100%|██████████| 20/20 [03:58<00:00, 11.93s/it]
+Selected losses for the test dataset after the last epoch:
+L1 loss between real signal A and fake signals A:  0.8091567754745483
+L1 loss between real signal B and fake signals B:  0.9115252494812012
+L1 loss between real signal A and fake signal B:  0.9142406582832336
+L1 loss between real signal B and fake signal A:  0.9301772117614746
+Discrminator A loss:  0.11922367662191391
+Discrminator B loss:  0.519850492477417
+Total Discriminator loss:  0.6390741467475891
+Adversaral loss A:  0.8364514112472534
+Adversaral loss B:  0.359629362821579
+Cycle consistency loss A:  0.8091567754745483
+Cycle consistency loss B:  0.9115277528762817
+Supervised loss A:  1.014553189277649
+Supervised loss B:  1.1683367490768433

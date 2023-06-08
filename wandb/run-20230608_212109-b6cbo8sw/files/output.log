@@ -1,0 +1,6 @@
+
+  0%|          | 1/400 [00:08<55:24,  8.33s/it]Exception ignored in: <function _releaseLock at 0x7fb361279430>
+Traceback (most recent call last):
+  File "/home/johann/anaconda3/envs/pytorch/lib/python3.9/logging/__init__.py", line 227, in _releaseLock
+    def _releaseLock():
+KeyboardInterrupt:

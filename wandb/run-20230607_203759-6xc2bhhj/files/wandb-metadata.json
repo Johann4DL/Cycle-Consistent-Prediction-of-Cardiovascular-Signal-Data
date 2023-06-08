@@ -1,0 +1,124 @@
+{
+    "os": "Linux-5.19.0-43-generic-x86_64-with-glibc2.35",
+    "python": "3.9.15",
+    "heartbeatAt": "2023-06-07T18:38:06.757819",
+    "startedAt": "2023-06-07T18:37:59.557258",
+    "docker": null,
+    "cuda": null,
+    "args": null,
+    "state": "running",
+    "program": "<python with no main file>",
+    "git": {
+        "remote": "https://github.com/Johann4DL/Master_thesis.git",
+        "commit": "5fc93b3d964f3566ca5624879fbff2cc0bdb0bee"
+    },
+    "email": "103281292+Johann4DL@users.noreply.github.com",
+    "root": "/home/johann/Desktop/GitHub repos/Master_thesis",
+    "host": "johann-TITAN",
+    "username": "johann",
+    "executable": "/home/johann/anaconda3/envs/pytorch/bin/python",
+    "cpu_count": 8,
+    "cpu_count_logical": 16,
+    "cpu_freq": {
+        "current": 3.2731874999999997,
+        "min": 1200.0,
+        "max": 3300.0
+    },
+    "cpu_freq_per_core": [
+        {
+            "current": 2.549,
+            "min": 1200.0,
+            "max": 3300.0
+        },
+        {
+            "current": 3.559,
+            "min": 1200.0,
+            "max": 3300.0
+        },
+        {
+            "current": 3.661,
+            "min": 1200.0,
+            "max": 3300.0
+        },
+        {
+            "current": 3.3,
+            "min": 1200.0,
+            "max": 3300.0
+        },
+        {
+            "current": 3.587,
+            "min": 1200.0,
+            "max": 3300.0
+        },
+        {
+            "current": 4.361,
+            "min": 1200.0,
+            "max": 3300.0
+        },
+        {
+            "current": 4.036,
+            "min": 1200.0,
+            "max": 3300.0
+        },
+        {
+            "current": 1.2,
+            "min": 1200.0,
+            "max": 3300.0
+        },
+        {
+            "current": 4.365,
+            "min": 1200.0,
+            "max": 3300.0
+        },
+        {
+            "current": 3.755,
+            "min": 1200.0,
+            "max": 3300.0
+        },
+        {
+            "current": 4.185,
+            "min": 1200.0,
+            "max": 3300.0
+        },
+        {
+            "current": 3.035,
+            "min": 1200.0,
+            "max": 3300.0
+        },
+        {
+            "current": 3.49,
+            "min": 1200.0,
+            "max": 3300.0
+        },
+        {
+            "current": 3.491,
+            "min": 1200.0,
+            "max": 3300.0
+        },
+        {
+            "current": 3.866,
+            "min": 1200.0,
+            "max": 3300.0
+        },
+        {
+            "current": 1.2,
+            "min": 1200.0,
+            "max": 3300.0
+        }
+    ],
+    "disk": {
+        "total": 456.8854446411133,
+        "used": 360.4308738708496
+    },
+    "gpu": "NVIDIA GeForce RTX 3070 Laptop GPU",
+    "gpu_count": 1,
+    "gpu_devices": [
+        {
+            "name": "NVIDIA GeForce RTX 3070 Laptop GPU",
+            "memory_total": 8589934592
+        }
+    ],
+    "memory": {
+        "total": 62.705955505371094
+    }
+}

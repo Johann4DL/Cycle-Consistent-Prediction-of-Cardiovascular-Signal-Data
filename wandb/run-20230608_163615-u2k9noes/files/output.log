@@ -1,0 +1,14 @@
+
+
+
+
+
+
+
+
+
+
+
+  2%|▏         | 9/500 [01:46<1:36:40, 11.81s/it]
+Selected losses for the test dataset after the last epoch:
+L1 loss between real signal A and fake signals A:  1.180438756942749

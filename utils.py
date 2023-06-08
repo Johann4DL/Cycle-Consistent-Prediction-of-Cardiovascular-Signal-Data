@@ -128,23 +128,6 @@ def subsample(df, rate):
     df['intervention'] = df['intervention'].astype(float)
     return df
 
-# def normalize(df):
-#     # intervntion, Phasenzuordnung and animal should be in another dataframe before the data is normalized
-#     df_IPA = df[['intervention', 'Phasenzuordnung', 'animal']]
-#     df = df.drop(columns=['intervention', 'Phasenzuordnung', 'animal'])  # drop columns in original dataframe
-
-#     df_cols = ['LVtot_kalibriert', 'LVP', 'AoP', 'AoQ', 'RVtot_kalibriert', 'VADspeed', 'VadQ', 'VADcurrent', 'LVtot', 'RVtot']
-#     # df_cols = ['LVtot_kalibriert', 'LVP', 'AoP', 'RVtot_kalibriert', 'VadQ', 'VADcurrent']
-#     df = df.to_numpy()  #convert to numpy
-
-#     # scale the data
-#     scaler = StandardScaler()
-#     scaler.fit(df)
-#     transformed_data = scaler.transform(df)
-#     df = pd.DataFrame(transformed_data, columns=df_cols)  # convert to dataframe
-#     df = pd.concat([df, df_IPA], axis=1) # add the drpped columns again
-#     return df
-
 def normalize(df, scaler):
     # intervntion, Phasenzuordnung and animal should be in another dataframe before the data is normalized
     # df_IPA = df[['intervention', 'Phasenzuordnung', 'animal']]
@@ -177,7 +160,11 @@ def visualize(df, variables, length):
     axs[4].set_title(variables[4])
     axs[5].plot(df[variables[5]][:length])
     axs[5].set_title(variables[5])
+    axs[6].plot(df[variables[6]][:length])
+    axs[6].set_title(variables[6])
     plt.show()
+
+    
 
 
 
