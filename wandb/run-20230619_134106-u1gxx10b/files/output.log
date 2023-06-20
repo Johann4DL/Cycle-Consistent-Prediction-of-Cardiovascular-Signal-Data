@@ -1,0 +1,15 @@
+
+  0%|          | 0/30 [00:00<?, ?it/s]
+Size of the dataset with data from phase 1 (914408, 13)
+Size of Phase 1:  (290151, 13)
+Size of Phase 2:  (0, 13)
+Size of Phase 3:  (624257, 13)
+Size of Phase 4:  (0, 13)
+SIze of Phase 5:  (0, 13)
+8
+Number of animals after removing those with less than 10 data points:  7
+Test animal(s): [3]
+Different animal IDs after removing those that are in the test dataset:  6
+Train data shape: (337568, 13)
+Test data shape: (89344, 13)
+The test dataset is 20.927966419308895 percent of the whole data:

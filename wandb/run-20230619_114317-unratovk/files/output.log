@@ -1,0 +1,46 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+100%|██████████| 25/25 [06:18<00:00, 15.13s/it]
+Test animal(s): [3, 4, 8]
+Different animal IDs after removing those that are in the test dataset:  4
+Train data shape: (66845, 13)
+Test data shape: (50688, 13)
+The test dataset is 43.1266112496065 percent of the whole data:
+Test animal(s): [3, 4]
+Different animal IDs after removing those that are in the test dataset:  5
+Train data shape: (86381, 13)
+Test data shape: (31232, 13)
+The test dataset is 26.55488763997177 percent of the whole data:
+Test animal(s): [3]
+Different animal IDs after removing those that are in the test dataset:  6
+Train data shape: (97546, 13)
+Test data shape: (19968, 13)
+The test dataset is 16.9920179723267 percent of the whole data:
+Test animal(s): [3]
+Different animal IDs after removing those that are in the test dataset:  6
+Train data shape: (97546, 13)
+Test data shape: (19968, 13)

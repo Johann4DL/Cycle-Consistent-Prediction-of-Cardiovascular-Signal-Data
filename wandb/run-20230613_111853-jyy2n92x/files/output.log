@@ -1,0 +1,16 @@
+
+
+  0%|          | 0/120 [00:02<?, ?it/s]
+torch.Size([512, 512, 256, 32])
+torch.Size([512, 256, 32])
+torch.Size([512, 256, 32])
+torch.Size([512, 512, 256, 32])
+torch.Size([512, 256, 32])
+torch.Size([512, 256, 32])
+torch.Size([512, 256, 32])
+torch.Size([512, 256, 32])
+torch.Size([512, 1, 256])
+torch.Size([512, 3, 256])
+torch.Size([512, 1, 256])
+torch.Size([512, 256])
+torch.Size([512, 256])

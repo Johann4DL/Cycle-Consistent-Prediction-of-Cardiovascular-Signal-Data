@@ -1,14 +1,16 @@
 import torch
 import torch.nn as nn
+import torch.nn.functional as F
 
+# Try out InstanceNorm1d instead of BatchNorm1d
 def double_conv_pad(in_channels, out_channels):
     return nn.Sequential(
         nn.Conv1d(in_channels, out_channels, kernel_size=3, padding=1, padding_mode='zeros'),
-        # nn.BatchNorm1d(out_channels),
+        nn.BatchNorm1d(out_channels),
         nn.LeakyReLU(inplace=True),
         nn.Dropout1d(p=0.1, inplace=False),
         nn.Conv1d(out_channels, out_channels, kernel_size=3, padding=1, padding_mode='zeros'),
-        # nn.BatchNorm1d(out_channels),
+        nn.BatchNorm1d(out_channels),
         nn.LeakyReLU(inplace=True),
         nn.Dropout1d(p=0.1, inplace=False),
     )
@@ -25,53 +27,56 @@ def triple_conv_pad(in_channels, out_channels):
 
 
 # This one has skip connections
-class OneChannelUnetGenerator(nn.Module):
-    def __init__(self):
-        super(OneChannelUnetGenerator, self).__init__()
-        self.maxpool = nn.MaxPool1d(2)
+# class OneChannelUnetGenerator(nn.Module):
+#     def __init__(self):
+#         super(OneChannelUnetGenerator, self).__init__()
+#         self.maxpool = nn.MaxPool1d(2)
 
-        self.down_conv1 = double_conv_pad(1, 32) 
-        self.down_conv2 = double_conv_pad(32, 64) 
-        self.down_conv3 = double_conv_pad(64, 128)
-        self.down_conv4 = double_conv_pad(128, 256)
+#         self.down_conv1 = double_conv_pad(1, 32) 
+#         self.down_conv2 = double_conv_pad(32, 64) 
+#         self.down_conv3 = double_conv_pad(64, 128)
+#         self.down_conv4 = double_conv_pad(128, 256)
 
-        self.up_trans1 = nn.ConvTranspose1d(256, 128, kernel_size=2, stride=2)
-        self.up_conv1 = double_conv_pad(256, 128)
-        self.up_trans2 = nn.ConvTranspose1d(128, 64, kernel_size=2, stride=2)
-        self.up_conv2 = double_conv_pad(128, 64)
-        self.up_trans3 = nn.ConvTranspose1d(64, 32, kernel_size=2, stride=2)
-        self.up_conv3 = double_conv_pad(64, 32)
+#         self.up_trans1 = nn.ConvTranspose1d(256, 128, kernel_size=2, stride=2)
+#         self.up_conv1 = double_conv_pad(256, 128)
+#         self.up_trans2 = nn.ConvTranspose1d(128, 64, kernel_size=2, stride=2)
+#         self.up_conv2 = double_conv_pad(128, 64)
+#         self.up_trans3 = nn.ConvTranspose1d(64, 32, kernel_size=2, stride=2)
+#         self.up_conv3 = double_conv_pad(64, 32)
 
-        self.out = nn.Conv1d(32, 1, kernel_size=1)
+#         self.out = nn.Conv1d(32, 1, kernel_size=1)
 
-    def forward(self, input):
+#     def forward(self, input):
         
-        # batch_size, channels, tensor_size
-        # downsampling
-        x1 = self.down_conv1(input)     
-        x2 = self.maxpool(x1) 
-        x3 = self.down_conv2(x2)  
-        x4 = self.maxpool(x3) 
-        x5 = self.down_conv3(x4)   
-        x6 = self.maxpool(x5) 
-        x7 = self.down_conv4(x6)
+#         # batch_size, channels, tensor_size
+#         # downsampling
+#         x1 = self.down_conv1(input)     
+#         x2 = self.maxpool(x1) 
+#         x3 = self.down_conv2(x2)  
+#         x4 = self.maxpool(x3) 
+#         x5 = self.down_conv3(x4)   
+#         x6 = self.maxpool(x5) 
+#         x7 = self.down_conv4(x6)
 
-        # upsampling
-        x = self.up_trans1(x7)
-        x = self.up_conv1(torch.cat([x, x5], 1))
-        x = self.up_trans2(x)
-        x = self.up_conv2(torch.cat([x, x3], 1))
-        x = self.up_trans3(x)
-        x = self.up_conv3(torch.cat([x, x1], 1))
-        x = self.out(x)
-        return x
+#         # upsampling
+#         x = self.up_trans1(x7)
+#         x = self.up_conv1(torch.cat([x, x5], 1))
+#         x = self.up_trans2(x)
+#         x = self.up_conv2(torch.cat([x, x3], 1))
+#         x = self.up_trans3(x)
+#         x = self.up_conv3(torch.cat([x, x1], 1))
+#         x = self.out(x)
+#         return x
     
 
-class MultiChannelUnetGenerator(nn.Module):
+class BasicGenerator(nn.Module):
     def __init__(self, INPUTCHANNELS, OUTPUTCHANNELS):
-        super(MultiChannelUnetGenerator, self).__init__()
-        self.maxpool = nn.MaxPool1d((2))  
+        super(BasicGenerator, self).__init__()
+        '''
+        A Basic Unet Generator without skip connections
+        '''
 
+        self.maxpool = nn.MaxPool1d((2))  
 
         self.down_conv1 = double_conv_pad(INPUTCHANNELS, 32) 
         self.down_conv2 = double_conv_pad(32, 64) 
@@ -86,6 +91,22 @@ class MultiChannelUnetGenerator(nn.Module):
         self.up_conv3 = double_conv_pad(32, 32)
 
         self.out = nn.Conv1d(32, OUTPUTCHANNELS, kernel_size=1) # kernel_size must be == 1
+
+        self.apply(self._init_weights)
+        
+    def _init_weights(self, module):
+        if isinstance(module, nn.Conv1d):
+            module.weight.data.normal_(mean=0.0, std=1)
+            if module.bias is not None:
+                module.bias.data.zero_()
+        elif isinstance(module, nn.ConvTranspose1d):
+            module.weight.data.normal_(mean=0.0, std=1)
+            if module.bias is not None:
+                module.bias.data.zero_()
+        elif isinstance(module, nn.BatchNorm1d):
+            module.weight.data.normal_(mean=0.0, std=1)
+            if module.bias is not None:
+                module.bias.data.zero_()
 
     def forward(self, input):
         # [Batch size, Channels in, Height, Width]
@@ -108,9 +129,12 @@ class MultiChannelUnetGenerator(nn.Module):
 
         return x
     
-class SkipConnectionsMultiChannelUnetGenerator(nn.Module):
+class SkipConGenerator(nn.Module):
     def __init__(self, INPUTCHANNELS, OUTPUTCHANNELS):
-        super(SkipConnectionsMultiChannelUnetGenerator, self).__init__()
+        super(SkipConGenerator, self).__init__()
+        '''
+        A Unet Generator with skip connections
+        '''
         self.maxpool = nn.MaxPool1d((2))  
 
         self.down_conv1 = double_conv_pad(INPUTCHANNELS, 32) 
@@ -126,6 +150,22 @@ class SkipConnectionsMultiChannelUnetGenerator(nn.Module):
         self.up_conv3 = double_conv_pad(64, 32)
 
         self.out = nn.Conv1d(32, OUTPUTCHANNELS, kernel_size=1) # kernel_size must be == 1
+
+        self.apply(self._init_weights)
+        
+    def _init_weights(self, module):
+        if isinstance(module, nn.Conv1d):
+            module.weight.data.normal_(mean=0.0, std=1)
+            if module.bias is not None:
+                module.bias.data.zero_()
+        elif isinstance(module, nn.ConvTranspose1d):
+            module.weight.data.normal_(mean=0.0, std=1)
+            if module.bias is not None:
+                module.bias.data.zero_()
+        elif isinstance(module, nn.BatchNorm1d):
+            module.weight.data.normal_(mean=0.0, std=1)
+            if module.bias is not None:
+                module.bias.data.zero_()
 
     def forward(self, input):
         # [Batch size, Channels in, Height, Width]
@@ -164,7 +204,6 @@ class EmbeddingUnetGenerator(nn.Module):
         self.embedding = torch.nn.Embedding(num_embeddings=11, embedding_dim=32)  # if num_embeddings < 11 I get an error, even though
                                                                                   # there are only 9 different interventions
         
-
         self.up_trans1 = nn.ConvTranspose1d(1024, 512, kernel_size=(2), stride=2, padding=0)
         self.up_conv1 = double_conv_pad(1024, 512)
         self.up_trans2 = nn.ConvTranspose1d(512, 256, kernel_size=(2), stride=2, padding=0)
@@ -177,6 +216,25 @@ class EmbeddingUnetGenerator(nn.Module):
         self.up_conv5 = double_conv_pad(64, 32)
 
         self.out = nn.Conv1d(32, OUTPUTCHANNELS, kernel_size=1) # kernel_size must be == 1
+
+        self.apply(self._init_weights)
+        
+    def _init_weights(self, module):
+        if isinstance(module, nn.Conv1d):
+            module.weight.data.normal_(mean=0.0, std=1)
+            if module.bias is not None:
+                module.bias.data.zero_()
+        elif isinstance(module, nn.ConvTranspose1d):
+            module.weight.data.normal_(mean=0.0, std=1)
+            if module.bias is not None:
+                module.bias.data.zero_()
+        elif isinstance(module, nn.Embedding):
+            module.weight.data.normal_(mean=0.0, std=1)
+        elif isinstance(module, nn.BatchNorm1d):
+            module.weight.data.normal_(mean=0.0, std=1)
+            if module.bias is not None:
+                module.bias.data.zero_()
+
 
     def forward(self, input, phase, intervention):
         # [Batch size, Channels in, Height, Width]
@@ -332,4 +390,98 @@ class UnpairedEncoderDecoder(nn.Module):
         x = self.up_conv3(x)
         x = self.out(x)
 
+        return x
+    
+
+class OneHotGenerator(nn.Module):
+    def __init__(self, INPUTCHANNELS, OUTPUTCHANNELS):
+        super(OneHotGenerator, self).__init__()
+        self.maxpool = nn.MaxPool1d((2))  
+
+        self.down_conv1 = double_conv_pad(INPUTCHANNELS, 32) 
+        self.down_conv2 = double_conv_pad(32, 64) 
+        self.down_conv3 = double_conv_pad(64, 128)
+        self.down_conv4 = double_conv_pad(128, 256)
+        self.down_conv5 = double_conv_pad(256, 512)
+        self.down_conv6 = double_conv_pad(512, 1024)
+        
+        self.phaseLinear = nn.Linear(6, 32)
+        self.interventionLinear = nn.Linear(11, 32)
+        self.FCLinear = nn.Linear(96, 32)
+
+        self.up_trans1 = nn.ConvTranspose1d(1024, 512, kernel_size=(2), stride=2, padding=0)
+        self.up_conv1 = double_conv_pad(1024, 512)
+        self.up_trans2 = nn.ConvTranspose1d(512, 256, kernel_size=(2), stride=2, padding=0)
+        self.up_conv2 = double_conv_pad(512, 256)
+        self.up_trans3 = nn.ConvTranspose1d(256, 128, kernel_size=(2), stride=2, padding=0)
+        self.up_conv3 = double_conv_pad(256, 128)
+        self.up_trans4 = nn.ConvTranspose1d(128, 64, kernel_size=(2), stride=2, padding=0)
+        self.up_conv4 = double_conv_pad(128, 64)
+        self.up_trans5 = nn.ConvTranspose1d(64, 32, kernel_size=(2), stride=2, padding=0)
+        self.up_conv5 = double_conv_pad(64, 32)
+
+        self.out = nn.Conv1d(32, OUTPUTCHANNELS, kernel_size=1) # kernel_size must be == 1
+
+        self.apply(self._init_weights)
+        
+    def _init_weights(self, module):
+        if isinstance(module, nn.Conv1d):
+            module.weight.data.normal_(mean=0.0, std=1)
+            if module.bias is not None:
+                module.bias.data.zero_()
+        elif isinstance(module, nn.ConvTranspose1d):
+            module.weight.data.normal_(mean=0.0, std=1)
+            if module.bias is not None:
+                module.bias.data.zero_()
+        elif isinstance(module, nn.Embedding):
+            module.weight.data.normal_(mean=0.0, std=1)
+        elif isinstance(module, nn.BatchNorm1d):
+            module.weight.data.normal_(mean=0.0, std=1)
+            if module.bias is not None:
+                module.bias.data.zero_()
+        elif isinstance(module, nn.Linear):
+            module.weight.data.normal_(mean=0.0, std=1)
+            if module.bias is not None:
+                module.bias.data.zero_()
+
+
+    def forward(self, input, phase, intervention):
+        # [Batch size, Channels in, Height, Width]
+        
+        # downsampling
+        x1 = self.down_conv1(input)   
+        x2 = self.maxpool(x1) 
+        x3 = self.down_conv2(x2)  
+        x4 = self.maxpool(x3) 
+        x5 = self.down_conv3(x4) 
+        x6 = self.maxpool(x5) 
+        x7 = self.down_conv4(x6)
+        x8 = self.maxpool(x7)
+        x9 = self.down_conv5(x8)
+        x10 = self.maxpool(x9)
+        x11 = self.down_conv6(x10)     
+
+        # one hot encoding
+        p = F.one_hot(phase, num_classes=6).type(torch.FloatTensor).to(DEVICE)
+        i = F.one_hot(intervention, num_classes=11).type(torch.FloatTensor).to(DEVICE)
+        # Fully connected Layers
+        p = self.phaseLinear(p).to(DEVICE)
+        i = self.interventionLinear(i).to(DEVICE)
+        # Concatenate the phase and intervention one hot encodings with the output of the last convolutional layer and reshape
+        x7 = torch.cat([x7, p, i], 1) 
+        x7 = x7.reshape(x7.shape[0], WINDOW, 96)
+        x7 = self.FCLinear(x7).to(DEVICE) 
+        
+
+        x = self.up_trans1(x11)
+        x = self.up_conv1(torch.cat([x, x9], 1))  # skip connection
+        x = self.up_trans2(x)
+        x = self.up_conv2(torch.cat([x, x7], 1))  # skip connection
+        x = self.up_trans3(x)
+        x = self.up_conv3(torch.cat([x, x5], 1))  # skip connection
+        x = self.up_trans4(x)
+        x = self.up_conv4(torch.cat([x, x3], 1))  # skip connection
+        x = self.up_trans5(x)
+        x = self.up_conv5(torch.cat([x, x1], 1))  # skip connection
+        x = self.out(x)
         return x

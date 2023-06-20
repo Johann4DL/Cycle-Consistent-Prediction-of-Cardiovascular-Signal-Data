@@ -38,3 +38,24 @@ config: {'learning_rate': 0.0001, 'epochs': 400}
 2023-06-08 22:37:30,928 INFO    MainThread:18652 [wandb_run.py:_redirect():2078] Wrapping output streams.
 2023-06-08 22:37:30,928 INFO    MainThread:18652 [wandb_run.py:_redirect():2103] Redirects installed.
 2023-06-08 22:37:30,929 INFO    MainThread:18652 [wandb_init.py:init():829] run started, returning control to user process
+2023-06-08 23:53:28,966 INFO    MainThread:18652 [wandb_setup.py:_flush():76] Current SDK version is 0.15.3
+2023-06-08 23:53:28,966 INFO    MainThread:18652 [wandb_setup.py:_flush():76] Configure stats pid to 18652
+2023-06-08 23:53:28,966 INFO    MainThread:18652 [wandb_setup.py:_flush():76] Loading settings from /home/johann/.config/wandb/settings
+2023-06-08 23:53:28,966 INFO    MainThread:18652 [wandb_setup.py:_flush():76] Loading settings from /home/johann/Desktop/GitHub repos/Master_thesis/wandb/settings
+2023-06-08 23:53:28,966 INFO    MainThread:18652 [wandb_setup.py:_flush():76] Loading settings from environment variables: {}
+2023-06-08 23:53:28,966 INFO    MainThread:18652 [wandb_setup.py:_flush():76] Applying setup settings: {'_disable_service': False}
+2023-06-08 23:53:28,966 INFO    MainThread:18652 [wandb_setup.py:_flush():76] Inferring run settings from compute environment: {'program': '<python with no main file>'}
+2023-06-08 23:53:28,966 INFO    MainThread:18652 [wandb_init.py:_log_setup():507] Logging user logs to /home/johann/Desktop/GitHub repos/Master_thesis/wandb/run-20230608_235328-flnhhpnc/logs/debug.log
+2023-06-08 23:53:28,967 INFO    MainThread:18652 [wandb_init.py:_log_setup():508] Logging internal logs to /home/johann/Desktop/GitHub repos/Master_thesis/wandb/run-20230608_235328-flnhhpnc/logs/debug-internal.log
+2023-06-08 23:53:28,967 INFO    MainThread:18652 [wandb_init.py:_jupyter_setup():453] configuring jupyter hooks <wandb.sdk.wandb_init._WandbInit object at 0x7f17e0197220>
+2023-06-08 23:53:28,967 INFO    MainThread:18652 [wandb_init.py:init():547] calling init triggers
+2023-06-08 23:53:28,967 INFO    MainThread:18652 [wandb_init.py:init():554] wandb.init called with sweep_config: {}
+config: {'learning_rate': 0.0001, 'epochs': 400}
+2023-06-08 23:53:28,967 INFO    MainThread:18652 [wandb_init.py:init():571] re-initializing run, found existing run on stack: 0bimpgng
+2023-06-08 23:53:28,968 INFO    MainThread:18652 [wandb_run.py:_finish():1893] finishing run johannanton/Cycle_GAN/0bimpgng
+2023-06-08 23:53:28,968 INFO    MainThread:18652 [wandb_run.py:_atexit_cleanup():2127] got exitcode: 0
+2023-06-08 23:53:28,969 INFO    MainThread:18652 [wandb_run.py:_restore():2110] restore
+2023-06-08 23:53:28,969 INFO    MainThread:18652 [wandb_run.py:_restore():2116] restore done
+2023-06-08 23:53:33,607 INFO    MainThread:18652 [wandb_run.py:_footer_history_summary_info():3469] rendering history
+2023-06-08 23:53:33,610 INFO    MainThread:18652 [wandb_run.py:_footer_history_summary_info():3501] rendering summary
+2023-06-08 23:53:33,614 INFO    MainThread:18652 [wandb_run.py:_footer_sync_info():3428] logging synced files

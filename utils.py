@@ -5,6 +5,7 @@ import glob
 import numpy as np
 from sklearn.preprocessing import StandardScaler
 import matplotlib.pyplot as plt
+import utils
 
 def save_checkpoint(model, optimizer, path="my_checkpoint.pth.tar"):
     print("=> Saving checkpoint at location: ", path)
@@ -128,23 +129,6 @@ def subsample(df, rate):
     df['intervention'] = df['intervention'].astype(float)
     return df
 
-def normalize(df, scaler):
-    # intervntion, Phasenzuordnung and animal should be in another dataframe before the data is normalized
-    # df_IPA = df[['intervention', 'Phasenzuordnung', 'animal']]
-    # df = df.drop(columns=['intervention', 'Phasenzuordnung', 'animal'])  # drop columns in original dataframe
-
-    #df_cols = ['LVtot_kalibriert', 'LVP', 'AoP', 'AoQ', 'RVtot_kalibriert', 'VADspeed', 'VadQ', 'VADcurrent', 'LVtot', 'RVtot']
-    # df_cols = ['LVtot_kalibriert', 'LVP', 'AoP', 'RVtot_kalibriert', 'VadQ', 'VADcurrent']
-    # column names
-    cols = df.columns.tolist()
-    df = df.to_numpy()  #convert to numpy
-
-    # scale the data
-    scaler.fit(df)
-    transformed_data = scaler.transform(df)
-    df = pd.DataFrame(transformed_data, columns=cols)  # convert to dataframe
-    # df = df.join(df_IPA) 
-    return df
 
 def visualize(df, variables, length):
     fig, axs = plt.subplots(len(variables), 1, figsize=(20, 10))
@@ -163,6 +147,59 @@ def visualize(df, variables, length):
     axs[6].plot(df[variables[6]][:length])
     axs[6].set_title(variables[6])
     plt.show()
+
+def normalize_by_all_phases(df, scaler):
+    # intervntion, Phasenzuordnung and animal should be in another dataframe before the data is normalized
+    # df_IPA = df[['intervention', 'Phasenzuordnung', 'animal']]
+    # df = df.drop(columns=['intervention', 'Phasenzuordnung', 'animal'])  # drop columns in original dataframe
+
+    #df_cols = ['LVtot_kalibriert', 'LVP', 'AoP', 'AoQ', 'RVtot_kalibriert', 'VADspeed', 'VadQ', 'VADcurrent', 'LVtot', 'RVtot']
+    # df_cols = ['LVtot_kalibriert', 'LVP', 'AoP', 'RVtot_kalibriert', 'VadQ', 'VADcurrent']
+    # column names
+    cols = df.columns.tolist()
+    df = df.to_numpy()  #convert to numpy
+
+    # scale the data
+    scaler.fit(df)
+    transformed_data = scaler.transform(df)
+    df = pd.DataFrame(transformed_data, columns=cols)  # convert to dataframe
+    # df = df.join(df_IPA) 
+    return df
+
+def normalize_by_phase1(df, scaler):
+    '''
+    Normalize the data by the first phase
+    '''
+    # column names
+    cols = df.columns.tolist()
+    # select data von Phasenzuordnung == 1
+    phase_1 = df.loc[df['Phasenzuordnung'] == 1]
+    phase_1 = phase_1.to_numpy() 
+    df = df.to_numpy()  #convert to numpy
+    # scale the data only with the first phase
+    scaler.fit(phase_1)
+    transformed_data = scaler.transform(df)
+    df = pd.DataFrame(transformed_data, columns=cols)  # convert to dataframe
+    # df = df.join(df_IPA) 
+    return df
+
+def normalize_df(df, scaler):
+    df_IPA = df[['intervention', 'Phasenzuordnung', 'animal']]
+    df_temp = pd.DataFrame()
+    # scaler = StandardScaler()
+
+    for animal in df['animal'].unique():
+        # split df into separate dataframes for each animal
+        df_animal = df.loc[df['animal'] == animal]
+        df_animal = utils.normalize_by_phase1(df_animal, scaler) # normalize by phase 1
+        # append df_animal to df_temp
+        df_temp = pd.concat([df_temp, df_animal], axis=0, ignore_index=True)
+
+    df = df_temp
+    df = df.drop(columns=['intervention', 'Phasenzuordnung', 'animal'])
+    df.dropna(inplace=True)
+    df = df.join(df_IPA)
+    return df
 
     
 
