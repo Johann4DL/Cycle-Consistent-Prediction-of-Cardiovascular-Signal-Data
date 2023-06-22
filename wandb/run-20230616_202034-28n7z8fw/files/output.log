@@ -1,8 +1,0 @@
-
-
-
-  2%|▏         | 1/50 [01:54<1:33:32, 114.54s/it]
-Test animal(s): [17]
-Different animal IDs after removing those that are in the test dataset:  24
-Train data shape: (5788663, 13)
-Test data shape: (233414, 13)

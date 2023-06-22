@@ -148,50 +148,102 @@ def visualize(df, variables, length):
     axs[6].set_title(variables[6])
     plt.show()
 
+# def normalize_by_all_phases(df, scaler):
+#     # intervntion, Phasenzuordnung and animal should be in another dataframe before the data is normalized
+#     # df_IPA = df[['intervention', 'Phasenzuordnung', 'animal']]
+#     # df = df.drop(columns=['intervention', 'Phasenzuordnung', 'animal'])  # drop columns in original dataframe
+
+#     #df_cols = ['LVtot_kalibriert', 'LVP', 'AoP', 'AoQ', 'RVtot_kalibriert', 'VADspeed', 'VadQ', 'VADcurrent', 'LVtot', 'RVtot']
+#     # df_cols = ['LVtot_kalibriert', 'LVP', 'AoP', 'RVtot_kalibriert', 'VadQ', 'VADcurrent']
+#     # column names
+#     cols = df.columns.tolist()
+#     df = df.to_numpy()  #convert to numpy
+
+#     # scale the data
+#     scaler.fit(df)
+#     transformed_data = scaler.transform(df)
+#     df = pd.DataFrame(transformed_data, columns=cols)  # convert to dataframe
+#     # df = df.join(df_IPA) 
+#     return df
+
+# def normalize_by_phase1(df, scaler):
+#     '''
+#     Normalize the data by the first phase
+#     '''
+#     # column names
+#     cols = df.columns.tolist()
+#     # select data von Phasenzuordnung == 1
+#     phase_1 = df.loc[df['Phasenzuordnung'] == 1]
+#     phase_1 = phase_1.to_numpy() 
+#     df = df.to_numpy()  #convert to numpy
+#     # scale the data only with the first phase
+#     scaler.fit(phase_1)
+#     transformed_data = scaler.transform(df)
+#     df = pd.DataFrame(transformed_data, columns=cols)  # convert to dataframe
+#     # df = df.join(df_IPA) 
+#     return df
+
+# def normalize_df(df, scaler):
+#     df_IPA = df[['intervention', 'Phasenzuordnung', 'animal']]
+#     df_temp = pd.DataFrame()
+#     # scaler = StandardScaler()
+
+#     for animal in df['animal'].unique():
+#         # split df into separate dataframes for each animal
+#         df_animal = df.loc[df['animal'] == animal]
+#         df_animal = utils.normalize_by_phase1(df_animal, scaler) # normalize by phase 1
+#         # append df_animal to df_temp
+#         df_temp = pd.concat([df_temp, df_animal], axis=0, ignore_index=True)
+
+#     df = df_temp
+#     df = df.drop(columns=['intervention', 'Phasenzuordnung', 'animal'])
+#     df.dropna(inplace=True)
+#     df = df.join(df_IPA)
+#     return df
+
+def get_data_overview(df):
+    print('Shape of DataFrame', df.shape)
+    print('AoP: mean: ', df["AoP" ].mean(), 'std: ', df["AoP" ].std(), 'min: ', df["AoP" ].min(), 'max: ', df["AoP" ].max(), 'median: ', df["AoP" ].median())
+    print('VADcurrent: mean: ', df["VADcurrent" ].mean(), 'std: ', df["VADcurrent" ].std(), 'min: ', df["VADcurrent" ].min(), 'max: ', df["VADcurrent" ].max(), 'median: ', df["VADcurrent" ].median())
+    print('VadQ: mean: ', df["VadQ" ].mean(), 'std: ', df["VadQ" ].std(), 'min: ', df["VadQ" ].min(), 'max: ', df["VadQ" ].max(), 'median: ', df["VadQ" ].median())
+    print('LVP: mean: ', df["LVP" ].mean(), 'std: ', df["LVP" ].std(), 'min: ', df["LVP" ].min(), 'max: ', df["LVP" ].max(), 'median: ', df["LVP" ].median())
+    print('LVtot_kalibriert: mean: ', df["LVtot_kalibriert" ].mean(), 'std: ', df["LVtot_kalibriert" ].std(), 'min: ', df["LVtot_kalibriert" ].min(), 'max: ', df["LVtot_kalibriert" ].max(), 'median: ', df["LVtot_kalibriert" ].median())
+    
 def normalize_by_all_phases(df, scaler):
-    # intervntion, Phasenzuordnung and animal should be in another dataframe before the data is normalized
-    # df_IPA = df[['intervention', 'Phasenzuordnung', 'animal']]
-    # df = df.drop(columns=['intervention', 'Phasenzuordnung', 'animal'])  # drop columns in original dataframe
-
-    #df_cols = ['LVtot_kalibriert', 'LVP', 'AoP', 'AoQ', 'RVtot_kalibriert', 'VADspeed', 'VadQ', 'VADcurrent', 'LVtot', 'RVtot']
-    # df_cols = ['LVtot_kalibriert', 'LVP', 'AoP', 'RVtot_kalibriert', 'VadQ', 'VADcurrent']
-    # column names
+    '''
+    Normalize the data by the whole dataframe
+    '''
     cols = df.columns.tolist()
-    df = df.to_numpy()  #convert to numpy
-
-    # scale the data
+    df = df.to_numpy() 
     scaler.fit(df)
     transformed_data = scaler.transform(df)
-    df = pd.DataFrame(transformed_data, columns=cols)  # convert to dataframe
-    # df = df.join(df_IPA) 
+    df = pd.DataFrame(transformed_data, columns=cols)  
     return df
 
 def normalize_by_phase1(df, scaler):
     '''
     Normalize the data by the first phase
     '''
-    # column names
     cols = df.columns.tolist()
-    # select data von Phasenzuordnung == 1
     phase_1 = df.loc[df['Phasenzuordnung'] == 1]
     phase_1 = phase_1.to_numpy() 
-    df = df.to_numpy()  #convert to numpy
-    # scale the data only with the first phase
+    df = df.to_numpy()  
     scaler.fit(phase_1)
     transformed_data = scaler.transform(df)
-    df = pd.DataFrame(transformed_data, columns=cols)  # convert to dataframe
-    # df = df.join(df_IPA) 
+    df = pd.DataFrame(transformed_data, columns=cols)  
     return df
 
-def normalize_df(df, scaler):
+def normalize(df, scaler, phase1 = True):
     df_IPA = df[['intervention', 'Phasenzuordnung', 'animal']]
     df_temp = pd.DataFrame()
-    # scaler = StandardScaler()
+    NORMALIZE = utils.normalize_by_phase1
+    if phase1 == True:
+        NORMALIZE = utils.normalize_by_all_phases
 
     for animal in df['animal'].unique():
         # split df into separate dataframes for each animal
         df_animal = df.loc[df['animal'] == animal]
-        df_animal = utils.normalize_by_phase1(df_animal, scaler) # normalize by phase 1
+        df_animal = NORMALIZE(df_animal, scaler) # normalize by phase 1
         # append df_animal to df_temp
         df_temp = pd.concat([df_temp, df_animal], axis=0, ignore_index=True)
 
@@ -200,8 +252,5 @@ def normalize_df(df, scaler):
     df.dropna(inplace=True)
     df = df.join(df_IPA)
     return df
-
-    
-
 
 

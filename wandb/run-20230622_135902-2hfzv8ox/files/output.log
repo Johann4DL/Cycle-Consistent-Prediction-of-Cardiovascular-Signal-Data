@@ -1,0 +1,35 @@
+
+
+
+
+
+
+
+
+
+
+
+100%|██████████| 10/10 [21:13<00:00, 127.33s/it]
+Average L1 loss of source signals: 0.8460007979623335
+Average L1 loss of target signals: 1.0738401084608715
+Min and max loss of source signals: (0.47283414006233215, 1.2503957748413086)
+Min and max loss of target signals: (0.728622555732727, 1.443917155265808)
+Median loss of source signals: 0.8435739278793335
+Median loss of target signals: 1.0546460151672363
+(6022044, 13)
+Size of the dataset after selecting Phasenzuordnung 1 (2122212, 13)
+Size of the dataset with data from phase 1 (2122212, 13)
+Size of Phase 1:  (751120, 13)
+Size of Phase 2:  (0, 13)
+Size of Phase 3:  (1371092, 13)
+Size of Phase 4:  (0, 13)
+SIze of Phase 5:  (0, 13)
+25
+Number of animals after removing those with less than 10 data points:  25
+[  8  12  13 108   7  14  11   2  16  10 105 111  17  19   3  15   5  20
+ 113   4 102   1   9 107 101]
+Test animal(s): [3, 4, 8, 11, 17]
+Different animal IDs after removing those that are in the test dataset:  20
+Train data shape: (1506963, 13)
+Test data shape: (615168, 13)
+The test dataset is 28.98821986013116 percent of the whole data:

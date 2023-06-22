@@ -1,0 +1,15 @@
+
+
+  0%|          | 0/20 [02:16<?, ?it/s]
+  0%|          | 0/20 [00:00<?, ?it/s]/home/johann/anaconda3/envs/pytorch/lib/python3.9/site-packages/torch/optim/lr_scheduler.py:163: UserWarning: The epoch parameter in `scheduler.step()` was not necessary and is being deprecated where possible. Please use `scheduler.step()` to step the scheduler. During the deprecation, if epoch is different from None, the closed form is used instead of the new chainable form, where available. Please open an issue if you are unable to replicate your use case: https://github.com/pytorch/pytorch/issues/new/choose.
+  warnings.warn(EPOCH_DEPRECATION_WARNING, UserWarning)
+  5%|▌         | 1/20 [02:35<49:19, 155.79s/it]/home/johann/anaconda3/envs/pytorch/lib/python3.9/site-packages/torch/optim/lr_scheduler.py:163: UserWarning: The epoch parameter in `scheduler.step()` was not necessary and is being deprecated where possible. Please use `scheduler.step()` to step the scheduler. During the deprecation, if epoch is different from None, the closed form is used instead of the new chainable form, where available. Please open an issue if you are unable to replicate your use case: https://github.com/pytorch/pytorch/issues/new/choose.
+  warnings.warn(EPOCH_DEPRECATION_WARNING, UserWarning)
+
+ 10%|█         | 2/20 [07:29<1:07:28, 224.93s/it]
+Average L1 loss of source signals: 5.121332793320516
+Average L1 loss of target signals: 4.912148149025074
+Min and max loss of source signals: (4.255213737487793, 5.7782392501831055)
+Min and max loss of target signals: (3.584430456161499, 5.599075794219971)
+Median loss of source signals: 5.107378005981445
+Median loss of target signals: 4.90294885635376

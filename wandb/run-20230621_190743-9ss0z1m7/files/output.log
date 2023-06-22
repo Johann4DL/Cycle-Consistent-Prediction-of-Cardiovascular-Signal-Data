@@ -1,0 +1,15 @@
+
+  0%|          | 0/20 [00:00<?, ?it/s]/home/johann/anaconda3/envs/pytorch/lib/python3.9/site-packages/torch/optim/lr_scheduler.py:163: UserWarning: The epoch parameter in `scheduler.step()` was not necessary and is being deprecated where possible. Please use `scheduler.step()` to step the scheduler. During the deprecation, if epoch is different from None, the closed form is used instead of the new chainable form, where available. Please open an issue if you are unable to replicate your use case: https://github.com/pytorch/pytorch/issues/new/choose.
+  warnings.warn(EPOCH_DEPRECATION_WARNING, UserWarning)
+  5%|▌         | 1/20 [02:43<51:40, 163.17s/it]/home/johann/anaconda3/envs/pytorch/lib/python3.9/site-packages/torch/optim/lr_scheduler.py:163: UserWarning: The epoch parameter in `scheduler.step()` was not necessary and is being deprecated where possible. Please use `scheduler.step()` to step the scheduler. During the deprecation, if epoch is different from None, the closed form is used instead of the new chainable form, where available. Please open an issue if you are unable to replicate your use case: https://github.com/pytorch/pytorch/issues/new/choose.
+  warnings.warn(EPOCH_DEPRECATION_WARNING, UserWarning)
+ 10%|█         | 2/20 [05:00<44:24, 148.05s/it]/home/johann/anaconda3/envs/pytorch/lib/python3.9/site-packages/torch/optim/lr_scheduler.py:163: UserWarning: The epoch parameter in `scheduler.step()` was not necessary and is being deprecated where possible. Please use `scheduler.step()` to step the scheduler. During the deprecation, if epoch is different from None, the closed form is used instead of the new chainable form, where available. Please open an issue if you are unable to replicate your use case: https://github.com/pytorch/pytorch/issues/new/choose.
+  warnings.warn(EPOCH_DEPRECATION_WARNING, UserWarning)
+
+ 15%|█▌        | 3/20 [09:15<52:27, 185.14s/it]
+Average L1 loss of source signals: 0.9377595276747843
+Average L1 loss of target signals: 7.695962263809845
+Min and max loss of source signals: (0.5813641548156738, 1.31476628780365)
+Min and max loss of target signals: (3.883798599243164, 11.356119155883789)
+Median loss of source signals: 0.9312068223953247
+Median loss of target signals: 7.755105972290039
