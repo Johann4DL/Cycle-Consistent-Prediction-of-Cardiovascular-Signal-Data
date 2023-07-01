@@ -189,10 +189,166 @@ class SkipConGenerator(nn.Module):
         x = self.up_conv3(torch.cat([x, x1], 1))  # skip connection
         x = self.out(x)
         return x
-    
-class OneHotGenerator(nn.Module):
+
+
+class SkipTensorEmbeddingGen(nn.Module):
+    def __init__(self, INPUTCHANNELS, OUTPUTCHANNELS, Down = True, Bottleneck = True):
+        super(SkipTensorEmbeddingGen, self).__init__()
+        self.Down = Down
+        self.Bottleneck = Bottleneck
+        self.maxpool = nn.MaxPool1d((2))  
+
+        self.source_intervention = torch.nn.Embedding(num_embeddings=11, embedding_dim=256)
+        self.source_phase = torch.nn.Embedding(num_embeddings=6, embedding_dim=256)
+
+        self.down_conv1 = double_conv_pad(INPUTCHANNELS, 32) 
+        self.down_conv2 = double_conv_pad(32, 64) 
+        self.down_conv3 = double_conv_pad(64, 128)
+        self.down_conv4 = double_conv_pad(128, 256)
+
+        self.target_intervention = torch.nn.Embedding(num_embeddings=11, embedding_dim=32)
+        self.target_phase = torch.nn.Embedding(num_embeddings=6, embedding_dim=32)
+
+        self.up_trans1 = nn.ConvTranspose1d(256, 128, kernel_size=(2), stride=2, padding=0)
+        self.up_conv1 = double_conv_pad(256, 128)
+        self.up_trans2 = nn.ConvTranspose1d(128, 64, kernel_size=(2), stride=2, padding=0)
+        self.up_conv2 = double_conv_pad(128, 64)
+        self.up_trans3 = nn.ConvTranspose1d(64, 32, kernel_size=(2), stride=2, padding=0)
+        self.up_conv3 = double_conv_pad(64, 32)
+
+        self.out = nn.Conv1d(32, OUTPUTCHANNELS, kernel_size=1) # kernel_size must be == 1
+
+        self.apply(self._init_weights)
+        
+    def _init_weights(self, module):
+        if isinstance(module, nn.Conv1d):
+            module.weight.data.normal_(mean=0.0, std=1)
+            if module.bias is not None:
+                module.bias.data.zero_()
+        elif isinstance(module, nn.ConvTranspose1d):
+            module.weight.data.normal_(mean=0.0, std=1)
+            if module.bias is not None:
+                module.bias.data.zero_()
+        elif isinstance(module, nn.Embedding):
+            module.weight.data.normal_(mean=0.0, std=1)
+        elif isinstance(module, nn.BatchNorm1d):
+            module.weight.data.normal_(mean=0.0, std=1)
+            if module.bias is not None:
+                module.bias.data.zero_()
+        elif isinstance(module, nn.Linear):
+            module.weight.data.normal_(mean=0.0, std=1)
+            if module.bias is not None:
+                module.bias.data.zero_()
+
+    def forward(self, input, source_phase, source_intervention, target_phase, target_intervention):
+        if self.Down:
+            sp = self.source_phase(source_phase)
+            si = self.source_intervention(source_intervention)
+            input += sp + si 
+        x1 = self.down_conv1(input) 
+        x2 = self.maxpool(x1) 
+        x3 = self.down_conv2(x2)
+        x4 = self.maxpool(x3) 
+        x5 = self.down_conv3(x4) 
+        x6 = self.maxpool(x5)  
+        x7 = self.down_conv4(x6)
+
+        # # decoder
+        if self.Bottleneck:
+            tp = self.target_phase(target_phase)  
+            ti = self.target_intervention(target_intervention)
+            x7 += tp + ti # target embeddings are added before upsampling  # lieber concatenating und dann fully connected to amtch the dimension
+        x = self.up_trans1(x7)
+        x = self.up_conv1(torch.cat([x, x5], 1))
+        x = self.up_trans2(x)
+        x = self.up_conv2(torch.cat([x, x3], 1))
+        x = self.up_trans3(x)
+        x = self.up_conv3(torch.cat([x, x1], 1))
+        x = self.out(x)
+
+        return x
+
+
+class TensorEmbeddingGen(nn.Module):
+    def __init__(self, INPUTCHANNELS, OUTPUTCHANNELS, Down = True, Bottleneck = True):
+        super(TensorEmbeddingGen, self).__init__()
+        self.Down = Down
+        self.Bottleneck = Bottleneck
+        self.maxpool = nn.MaxPool1d((2))  
+
+        self.source_intervention = torch.nn.Embedding(num_embeddings=11, embedding_dim=256)
+        self.source_phase = torch.nn.Embedding(num_embeddings=6, embedding_dim=256)
+
+        self.down_conv1 = double_conv_pad(INPUTCHANNELS, 32) 
+        self.down_conv2 = double_conv_pad(32, 64) 
+        self.down_conv3 = double_conv_pad(64, 128)
+        self.down_conv4 = double_conv_pad(128, 256)
+
+        self.target_intervention = torch.nn.Embedding(num_embeddings=11, embedding_dim=32)
+        self.target_phase = torch.nn.Embedding(num_embeddings=6, embedding_dim=32)
+
+        self.up_trans1 = nn.ConvTranspose1d(256, 128, kernel_size=(2), stride=2, padding=0)
+        self.up_conv1 = double_conv_pad(128, 128)
+        self.up_trans2 = nn.ConvTranspose1d(128, 64, kernel_size=(2), stride=2, padding=0)
+        self.up_conv2 = double_conv_pad(64, 64)
+        self.up_trans3 = nn.ConvTranspose1d(64, 32, kernel_size=(2), stride=2, padding=0)
+        self.up_conv3 = double_conv_pad(32, 32)
+
+        self.out = nn.Conv1d(32, OUTPUTCHANNELS, kernel_size=1) # kernel_size must be == 1
+
+        self.apply(self._init_weights)
+        
+    def _init_weights(self, module):
+        if isinstance(module, nn.Conv1d):
+            module.weight.data.normal_(mean=0.0, std=1)
+            if module.bias is not None:
+                module.bias.data.zero_()
+        elif isinstance(module, nn.ConvTranspose1d):
+            module.weight.data.normal_(mean=0.0, std=1)
+            if module.bias is not None:
+                module.bias.data.zero_()
+        elif isinstance(module, nn.Embedding):
+            module.weight.data.normal_(mean=0.0, std=1)
+        elif isinstance(module, nn.BatchNorm1d):
+            module.weight.data.normal_(mean=0.0, std=1)
+            if module.bias is not None:
+                module.bias.data.zero_()
+        elif isinstance(module, nn.Linear):
+            module.weight.data.normal_(mean=0.0, std=1)
+            if module.bias is not None:
+                module.bias.data.zero_()
+
+    def forward(self, input, source_phase, source_intervention, target_phase, target_intervention):
+        if self.Down:
+            sp = self.source_phase(source_phase)
+            si = self.source_intervention(source_intervention)
+            input += sp + si 
+        x1 = self.down_conv1(input) 
+        x2 = self.maxpool(x1) 
+        x3 = self.down_conv2(x2)
+        x4 = self.maxpool(x3) 
+        x5 = self.down_conv3(x4) 
+        x6 = self.maxpool(x5)  
+        x7 = self.down_conv4(x6)
+
+        # # decoder
+        if self.Bottleneck:
+            tp = self.target_phase(target_phase)  
+            ti = self.target_intervention(target_intervention)
+            x7 += tp + ti # target embeddings are added before upsampling  # lieber concatenating und dann fully connected to amtch the dimension
+        x = self.up_trans1(x7)
+        x = self.up_conv1(x)
+        x = self.up_trans2(x)
+        x = self.up_conv2(x)
+        x = self.up_trans3(x)
+        x = self.up_conv3(x)
+        x = self.out(x)
+
+        return x
+
+class SkipOneHotGenerator(nn.Module):
     def __init__(self, INPUTCHANNELS, OUTPUTCHANNELS, WINDOWSIZE, Down = True, Bottleneck = True):
-        super(OneHotGenerator, self).__init__()
+        super(SkipOneHotGenerator, self).__init__()
         self.WINDOWSIZE = WINDOWSIZE
         self.Down = Down
         self.Bottleneck = Bottleneck
@@ -285,23 +441,29 @@ class OneHotGenerator(nn.Module):
         x = self.up_conv3(torch.cat([x, x1], 1))  # skip connection
         x = self.out(x)
         return x
-    
-class TensorEmbeddingGen(nn.Module):
-    def __init__(self, INPUTCHANNELS, OUTPUTCHANNELS, Down = True, Bottleneck = True):
-        super(TensorEmbeddingGen, self).__init__()
+
+
+class OneHotGenerator(nn.Module):
+    def __init__(self, INPUTCHANNELS, OUTPUTCHANNELS, WINDOWSIZE, Down = True, Bottleneck = True):
+        super(OneHotGenerator, self).__init__()
+        self.WINDOWSIZE = WINDOWSIZE
         self.Down = Down
         self.Bottleneck = Bottleneck
         self.maxpool = nn.MaxPool1d((2))  
 
-        self.source_intervention = torch.nn.Embedding(num_embeddings=11, embedding_dim=256)
-        self.source_phase = torch.nn.Embedding(num_embeddings=6, embedding_dim=256)
+        self.sourcephaseLinear = nn.Linear(7, 1)
+        self.sourceinterventionLinear = nn.Linear(12, 1)
+        self.sourceFCLinear = nn.Linear(768, 256)
+
         self.down_conv1 = double_conv_pad(INPUTCHANNELS, 32) 
         self.down_conv2 = double_conv_pad(32, 64) 
         self.down_conv3 = double_conv_pad(64, 128)
         self.down_conv4 = double_conv_pad(128, 256)
 
-        self.target_intervention = torch.nn.Embedding(num_embeddings=11, embedding_dim=32)
-        self.target_phase = torch.nn.Embedding(num_embeddings=6, embedding_dim=32)
+        self.targetphaseLinear = nn.Linear(7, 32)
+        self.targetinterventionLinear = nn.Linear(12, 32)
+        self.targetFCLinear = nn.Linear(96, 32)
+
         self.up_trans1 = nn.ConvTranspose1d(256, 128, kernel_size=(2), stride=2, padding=0)
         self.up_conv1 = double_conv_pad(128, 128)
         self.up_trans2 = nn.ConvTranspose1d(128, 64, kernel_size=(2), stride=2, padding=0)
@@ -333,34 +495,223 @@ class TensorEmbeddingGen(nn.Module):
             if module.bias is not None:
                 module.bias.data.zero_()
 
+
     def forward(self, input, source_phase, source_intervention, target_phase, target_intervention):
-        # [Batch size, Channels in, Height, Width]
+        # downsampling
         if self.Down:
-            sp = self.source_phase(source_phase)
-            si = self.source_intervention(source_intervention)
-            input += sp + si # source embeddings are added before downsampling
-        x1 = self.down_conv1(input) 
+            pS = F.one_hot(source_phase, num_classes=7).type(torch.FloatTensor).to(DEVICE)  #torch.Size([1, 256, 6])
+            iS = F.one_hot(source_intervention, num_classes=12).type(torch.FloatTensor).to(DEVICE) #torch.Size([1, 256, 11])
+            pS = self.sourcephaseLinear(pS).to(DEVICE)
+            iS = self.sourceinterventionLinear(iS).to(DEVICE)
+            pS = pS.reshape(input.shape[0], input.shape[1], input.shape[2]).to(DEVICE)
+            iS = iS.reshape(input.shape[0], input.shape[1], input.shape[2]).to(DEVICE)
+            # Concatenate the phase and intervention one hot encodings with the output of the last convolutional layer and reshape
+            input = torch.cat([input, pS, iS], 2) # torch.Size([1, 1, 768])\
+            input = self.sourceFCLinear(input).to(DEVICE) 
+
+        x1 = self.down_conv1(input)   
         x2 = self.maxpool(x1) 
-        x3 = self.down_conv2(x2)
+        x3 = self.down_conv2(x2)  
         x4 = self.maxpool(x3) 
         x5 = self.down_conv3(x4) 
-        x6 = self.maxpool(x5)  
-        x7 = self.down_conv4(x6)
+        x6 = self.maxpool(x5) 
+        x7 = self.down_conv4(x6)     
 
-        # # decoder
+        # upsampling
         if self.Bottleneck:
-            tp = self.target_phase(target_phase)  # lieber one hot encoding ( 1, 0, 0 , 0)
-            ti = self.target_intervention(target_intervention)
-            x7 += tp + ti # target embeddings are added before upsampling  # lieber concatenating und dann fully connected to amtch the dimension
+            # one hot encoding
+            pT = F.one_hot(target_phase, num_classes=7).type(torch.FloatTensor).to(DEVICE)
+            iT = F.one_hot(target_intervention, num_classes=12).type(torch.FloatTensor).to(DEVICE)
+            # Fully connected Layers
+            pT = self.targetphaseLinear(pT).to(DEVICE)
+            iT = self.targetinterventionLinear(iT).to(DEVICE)
+            # Concatenate the phase and intervention one hot encodings with the output of the last convolutional layer and reshape
+            x7 = torch.cat([x7, pT, iT], 1) 
+            x7 = x7.reshape(x7.shape[0], self.WINDOWSIZE, 96)
+            x7 = self.targetFCLinear(x7).to(DEVICE) 
+        
         x = self.up_trans1(x7)
-        x = self.up_conv1(x)
+        x = self.up_conv1(x)  
         x = self.up_trans2(x)
-        x = self.up_conv2(x)
+        x = self.up_conv2(x)  # skip connection
         x = self.up_trans3(x)
-        x = self.up_conv3(x)
+        x = self.up_conv3(x)  # skip connection
         x = self.out(x)
-
         return x
+
+
+
+# class OneHotGenerator(nn.Module):
+#     def __init__(self, INPUTCHANNELS, OUTPUTCHANNELS, WINDOWSIZE, Down = True, Bottleneck = True):
+#         super(OneHotGenerator, self).__init__()
+#         self.WINDOWSIZE = WINDOWSIZE
+#         self.Down = Down
+#         self.Bottleneck = Bottleneck
+#         self.maxpool = nn.MaxPool1d((2))  
+
+#         self.sourcephaseLinear = nn.Linear(7, 1)
+#         self.sourceinterventionLinear = nn.Linear(12, 1)
+#         self.sourceFCLinear = nn.Linear(768, 256)
+
+#         self.down_conv1 = double_conv_pad(INPUTCHANNELS, 32) 
+#         self.down_conv2 = double_conv_pad(32, 64) 
+#         self.down_conv3 = double_conv_pad(64, 128)
+#         self.down_conv4 = double_conv_pad(128, 256)
+
+#         self.targetphaseLinear = nn.Linear(7, 32)
+#         self.targetinterventionLinear = nn.Linear(12, 32)
+#         self.targetFCLinear = nn.Linear(96, 32)
+
+#         self.up_trans1 = nn.ConvTranspose1d(256, 128, kernel_size=(2), stride=2, padding=0)
+#         self.up_conv1 = double_conv_pad(256, 128)
+#         self.up_trans2 = nn.ConvTranspose1d(128, 64, kernel_size=(2), stride=2, padding=0)
+#         self.up_conv2 = double_conv_pad(128, 64)
+#         self.up_trans3 = nn.ConvTranspose1d(64, 32, kernel_size=(2), stride=2, padding=0)
+#         self.up_conv3 = double_conv_pad(64, 32)
+
+#         self.out = nn.Conv1d(32, OUTPUTCHANNELS, kernel_size=1) # kernel_size must be == 1
+
+#         self.apply(self._init_weights)
+        
+#     def _init_weights(self, module):
+#         if isinstance(module, nn.Conv1d):
+#             module.weight.data.normal_(mean=0.0, std=1)
+#             if module.bias is not None:
+#                 module.bias.data.zero_()
+#         elif isinstance(module, nn.ConvTranspose1d):
+#             module.weight.data.normal_(mean=0.0, std=1)
+#             if module.bias is not None:
+#                 module.bias.data.zero_()
+#         elif isinstance(module, nn.Embedding):
+#             module.weight.data.normal_(mean=0.0, std=1)
+#         elif isinstance(module, nn.BatchNorm1d):
+#             module.weight.data.normal_(mean=0.0, std=1)
+#             if module.bias is not None:
+#                 module.bias.data.zero_()
+#         elif isinstance(module, nn.Linear):
+#             module.weight.data.normal_(mean=0.0, std=1)
+#             if module.bias is not None:
+#                 module.bias.data.zero_()
+
+
+#     def forward(self, input, source_phase, source_intervention, target_phase, target_intervention):
+#         # downsampling
+#         if self.Down:
+#             pS = F.one_hot(source_phase, num_classes=7).type(torch.FloatTensor).to(DEVICE)  #torch.Size([1, 256, 6])
+#             iS = F.one_hot(source_intervention, num_classes=12).type(torch.FloatTensor).to(DEVICE) #torch.Size([1, 256, 11])
+#             pS = self.sourcephaseLinear(pS).to(DEVICE)
+#             iS = self.sourceinterventionLinear(iS).to(DEVICE)
+#             pS = pS.reshape(input.shape[0], input.shape[1], input.shape[2]).to(DEVICE)
+#             iS = iS.reshape(input.shape[0], input.shape[1], input.shape[2]).to(DEVICE)
+#             # Concatenate the phase and intervention one hot encodings with the output of the last convolutional layer and reshape
+#             input = torch.cat([input, pS, iS], 2) # torch.Size([1, 1, 768])\
+#             input = self.sourceFCLinear(input).to(DEVICE) 
+
+#         x1 = self.down_conv1(input)   
+#         x2 = self.maxpool(x1) 
+#         x3 = self.down_conv2(x2)  
+#         x4 = self.maxpool(x3) 
+#         x5 = self.down_conv3(x4) 
+#         x6 = self.maxpool(x5) 
+#         x7 = self.down_conv4(x6)     
+
+#         # upsampling
+#         if self.Bottleneck:
+#             # one hot encoding
+#             pT = F.one_hot(target_phase, num_classes=7).type(torch.FloatTensor).to(DEVICE)
+#             iT = F.one_hot(target_intervention, num_classes=12).type(torch.FloatTensor).to(DEVICE)
+#             # Fully connected Layers
+#             pT = self.targetphaseLinear(pT).to(DEVICE)
+#             iT = self.targetinterventionLinear(iT).to(DEVICE)
+#             # Concatenate the phase and intervention one hot encodings with the output of the last convolutional layer and reshape
+#             x7 = torch.cat([x7, pT, iT], 1) 
+#             x7 = x7.reshape(x7.shape[0], self.WINDOWSIZE, 96)
+#             x7 = self.targetFCLinear(x7).to(DEVICE) 
+        
+#         x = self.up_trans1(x7)
+#         x = self.up_conv1(torch.cat([x, x5], 1))  # skip connection
+#         x = self.up_trans2(x)
+#         x = self.up_conv2(torch.cat([x, x3], 1))  # skip connection
+#         x = self.up_trans3(x)
+#         x = self.up_conv3(torch.cat([x, x1], 1))  # skip connection
+#         x = self.out(x)
+#         return x
+    
+# class TensorEmbeddingGen(nn.Module):
+#     def __init__(self, INPUTCHANNELS, OUTPUTCHANNELS, Down = True, Bottleneck = True):
+#         super(TensorEmbeddingGen, self).__init__()
+#         self.Down = Down
+#         self.Bottleneck = Bottleneck
+#         self.maxpool = nn.MaxPool1d((2))  
+
+#         self.source_intervention = torch.nn.Embedding(num_embeddings=11, embedding_dim=256)
+#         self.source_phase = torch.nn.Embedding(num_embeddings=6, embedding_dim=256)
+#         self.down_conv1 = double_conv_pad(INPUTCHANNELS, 32) 
+#         self.down_conv2 = double_conv_pad(32, 64) 
+#         self.down_conv3 = double_conv_pad(64, 128)
+#         self.down_conv4 = double_conv_pad(128, 256)
+
+#         self.target_intervention = torch.nn.Embedding(num_embeddings=11, embedding_dim=32)
+#         self.target_phase = torch.nn.Embedding(num_embeddings=6, embedding_dim=32)
+#         self.up_trans1 = nn.ConvTranspose1d(256, 128, kernel_size=(2), stride=2, padding=0)
+#         self.up_conv1 = double_conv_pad(128, 128)
+#         self.up_trans2 = nn.ConvTranspose1d(128, 64, kernel_size=(2), stride=2, padding=0)
+#         self.up_conv2 = double_conv_pad(64, 64)
+#         self.up_trans3 = nn.ConvTranspose1d(64, 32, kernel_size=(2), stride=2, padding=0)
+#         self.up_conv3 = double_conv_pad(32, 32)
+
+#         self.out = nn.Conv1d(32, OUTPUTCHANNELS, kernel_size=1) # kernel_size must be == 1
+
+#         self.apply(self._init_weights)
+        
+#     def _init_weights(self, module):
+#         if isinstance(module, nn.Conv1d):
+#             module.weight.data.normal_(mean=0.0, std=1)
+#             if module.bias is not None:
+#                 module.bias.data.zero_()
+#         elif isinstance(module, nn.ConvTranspose1d):
+#             module.weight.data.normal_(mean=0.0, std=1)
+#             if module.bias is not None:
+#                 module.bias.data.zero_()
+#         elif isinstance(module, nn.Embedding):
+#             module.weight.data.normal_(mean=0.0, std=1)
+#         elif isinstance(module, nn.BatchNorm1d):
+#             module.weight.data.normal_(mean=0.0, std=1)
+#             if module.bias is not None:
+#                 module.bias.data.zero_()
+#         elif isinstance(module, nn.Linear):
+#             module.weight.data.normal_(mean=0.0, std=1)
+#             if module.bias is not None:
+#                 module.bias.data.zero_()
+
+#     def forward(self, input, source_phase, source_intervention, target_phase, target_intervention):
+#         # [Batch size, Channels in, Height, Width]
+#         if self.Down:
+#             sp = self.source_phase(source_phase)
+#             si = self.source_intervention(source_intervention)
+#             input += sp + si # source embeddings are added before downsampling
+#         x1 = self.down_conv1(input) 
+#         x2 = self.maxpool(x1) 
+#         x3 = self.down_conv2(x2)
+#         x4 = self.maxpool(x3) 
+#         x5 = self.down_conv3(x4) 
+#         x6 = self.maxpool(x5)  
+#         x7 = self.down_conv4(x6)
+
+#         # # decoder
+#         if self.Bottleneck:
+#             tp = self.target_phase(target_phase)  # lieber one hot encoding ( 1, 0, 0 , 0)
+#             ti = self.target_intervention(target_intervention)
+#             x7 += tp + ti # target embeddings are added before upsampling  # lieber concatenating und dann fully connected to amtch the dimension
+#         x = self.up_trans1(x7)
+#         x = self.up_conv1(x)
+#         x = self.up_trans2(x)
+#         x = self.up_conv2(x)
+#         x = self.up_trans3(x)
+#         x = self.up_conv3(x)
+#         x = self.out(x)
+
+#         return x
     
 # class EmbeddingUnetGenerator(nn.Module):
 #     def __init__(self, INPUTCHANNELS, OUTPUTCHANNELS):

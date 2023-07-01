@@ -1,4 +1,5 @@
 import torch
+import torch.nn as nn
 import config
 import pandas as pd
 import glob
@@ -69,7 +70,7 @@ def drop_cols(df):
     Drop the columns that are not relevant to the task
     '''
     df = df.drop(columns=['Time',  'RVP', 'PaP', 'PaQ', 'ECGcond', 'Looperkennung', 'Extrasystolen', 'Ansaugphase', 'ECG', 'ECGcond', 'LVV1', 'LVV2', 
-                      'LVV3', 'LVV4', 'LVV5', 'RVV1', 'RVV2', 'RVV3', 'RVV4', 'RVV5', 'Versuchsdatum', 'rep_an', 'rep_sect', 'contractility', 
+                      'LVV3', 'LVV4', 'LVV5', 'RVV1', 'RVV2', 'RVV3', 'RVV4', 'RVV5', 'Versuchsdatum', 'rep_an', 'rep_sect', #'contractility', 
                       'preload', 'afterload', 'controller'])  # 'VADspeed', 'LVtot', 'RVtot', 'AoQ'
     return df
 
@@ -80,7 +81,7 @@ def remove_strings(df):
     '''
 
     df_cols = ['LVtot_kalibriert', 'LVP', 'AoP', 'AoQ', 'RVtot_kalibriert', 'VADspeed', 'VadQ', 'VADcurrent', 'Phasenzuordnung', 
-            'LVtot', 'RVtot', 'animal', 'intervention']
+            'LVtot', 'RVtot', 'animal', 'contractility', 'intervention']
     
     # df_cols = ['LVtot_kalibriert', 'LVP', 'AoP', 'RVtot_kalibriert', 'VadQ', 'VADcurrent', 'Phasenzuordnung', 'animal', 'intervention']
 
@@ -116,7 +117,7 @@ def subsample(df, rate):
     Subsample a dataframe by the rate using 'groupedAvg'
     '''
     columns = ['LVtot_kalibriert', 'LVP', 'AoP', 'AoQ', 'RVtot_kalibriert', 'VADspeed', 'VadQ', 
-            'VADcurrent', 'Phasenzuordnung', 'LVtot', 'RVtot', 'animal', 'intervention']
+            'VADcurrent', 'Phasenzuordnung', 'LVtot', 'RVtot', 'animal', 'contractility', 'intervention']
     # columns = ['LVtot_kalibriert', 'LVP', 'AoP', 'RVtot_kalibriert', 'VadQ', 'VADcurrent', 'Phasenzuordnung', 'animal', 'intervention']
     
 
@@ -234,7 +235,7 @@ def normalize_by_phase1(df, scaler):
     return df
 
 def normalize(df, scaler, phase1 = True):
-    df_IPA = df[['intervention', 'Phasenzuordnung', 'animal']]
+    df_IPA = df[['intervention', 'Phasenzuordnung', 'animal','contractility']]
     df_temp = pd.DataFrame()
     NORMALIZE = utils.normalize_by_phase1
     if phase1 == True:
@@ -248,9 +249,53 @@ def normalize(df, scaler, phase1 = True):
         df_temp = pd.concat([df_temp, df_animal], axis=0, ignore_index=True)
 
     df = df_temp
-    df = df.drop(columns=['intervention', 'Phasenzuordnung', 'animal'])
+    df = df.drop(columns=['intervention', 'Phasenzuordnung', 'animal', 'contractility'])
     df.dropna(inplace=True)
     df = df.join(df_IPA)
     return df
 
+def gen_signals(fake_target, fake_source, target, source):
+    fake_target = fake_target.reshape(-1)
+    fake_source = fake_source.reshape(-1)
+    source = source.reshape(-1)
+    target = target.reshape(-1)
 
+    fig, ax = plt.subplots(2, 1, figsize=(10, 8))
+    ax[0].plot(source.cpu().detach().numpy(), label= 'Real source signals')
+    ax[0].plot(fake_source.cpu().detach().numpy(), label= 'Recreated source signals')
+    ax[0].set_xlabel('Signal length')
+    ax[0].set_ylabel('Loss')
+    ax[0].legend()
+
+    ax[1].plot(target.cpu().detach().numpy(), label= 'Real target signal')
+    ax[1].plot(fake_target.cpu().detach().numpy(), label= 'Recreated target signal')
+    ax[1].set_xlabel('Signal length')
+    ax[1].set_ylabel('Loss')
+    ax[1].legend()
+
+def discriminator_loss(disc, reals, fakes):
+    # calculate how close reals are to being classified as real
+    real_loss = nn.MSELoss(disc(reals), torch.ones_like(disc(reals)))
+    # calculate how close fakes are to being classified as fake
+    fake_loss = nn.MSELoss(disc(fakes), torch.zeros_like(disc(fakes)))
+    # return the average of real and fake loss
+    return (real_loss + fake_loss) / 2
+
+
+# @torch.cuda.amp.autocast()
+def get_disc_loss(source, target, disc_source, disc_target, fake_source, fake_target
+                    ):
+    """
+    Return the loss of the discriminator given inputs.
+    """
+    # generate fakes
+    # with torch.no_grad():
+    #     fake_B = gen_B(sig_A, phase, intervention).detach()
+    #     fake_A = gen_A(sig_B, phase, intervention).detach()
+    
+    # discriminator loss
+    disc_target_loss = utils.discriminator_loss(disc_target, target, fake_target)
+    disc_source_loss = utils.discriminator_loss(disc_source, source, fake_source)
+    disc_loss = (disc_source_loss + disc_target_loss) #/ 2
+
+    return disc_loss, disc_source_loss, disc_target_loss
