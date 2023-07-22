@@ -1,0 +1,14 @@
+
+
+
+  0%|          | 1/200 [01:37<5:21:56, 97.07s/it]
+Average L1 loss of source signals: 1.0088626139095702
+Average L1 loss of target signals: 1.066005800362463
+Standard deviation of source losses 0.3531048424056186
+Standard deviation of target losses 0.3483835221020872
+/tmp/ipykernel_1913641/2221543914.py:3: FutureWarning: The behavior of `series[i:j]` with an integer-dtype index is deprecated. In a future version, this will be treated as *label-based* indexing, consistent with e.g. `series[i]` lookups. To retain the old behavior, use `series.iloc[i:j]`. To get the future behavior, use `series.loc[i:j]`.
+  ax.plot(df_val[SIG_D][:1000], color='blue')
+
+  0%|          | 0/200 [00:24<?, ?it/s]
+(378835, 14)
+(94709, 14)

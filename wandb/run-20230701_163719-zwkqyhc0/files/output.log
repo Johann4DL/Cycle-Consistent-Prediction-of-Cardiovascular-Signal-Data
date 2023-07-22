@@ -93,3 +93,4 @@ Average L1 loss of target signals: 0.012140438733622432
 Min and max loss of source signals: (0.008309225551784039, 0.03412356227636337)
 Min and max loss of target signals: (0.007290152367204428, 0.03102313168346882)
 Median loss of source signals: 0.0136412070132792
+Median loss of target signals: 0.011488746386021376

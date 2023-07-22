@@ -1,0 +1,83 @@
+2023-07-15 10:29:06,966 INFO    MainThread:57203 [wandb_setup.py:_flush():76] Current SDK version is 0.15.3
+2023-07-15 10:29:06,966 INFO    MainThread:57203 [wandb_setup.py:_flush():76] Configure stats pid to 57203
+2023-07-15 10:29:06,966 INFO    MainThread:57203 [wandb_setup.py:_flush():76] Loading settings from /home/johann/.config/wandb/settings
+2023-07-15 10:29:06,966 INFO    MainThread:57203 [wandb_setup.py:_flush():76] Loading settings from /home/johann/Desktop/GitHub repos/Master_thesis/wandb/settings
+2023-07-15 10:29:06,966 INFO    MainThread:57203 [wandb_setup.py:_flush():76] Loading settings from environment variables: {}
+2023-07-15 10:29:06,966 INFO    MainThread:57203 [wandb_setup.py:_flush():76] Applying setup settings: {'_disable_service': False}
+2023-07-15 10:29:06,966 INFO    MainThread:57203 [wandb_setup.py:_flush():76] Inferring run settings from compute environment: {'program': '<python with no main file>'}
+2023-07-15 10:29:06,966 INFO    MainThread:57203 [wandb_init.py:_log_setup():507] Logging user logs to /home/johann/Desktop/GitHub repos/Master_thesis/wandb/run-20230715_102906-l6mlt1s3/logs/debug.log
+2023-07-15 10:29:06,966 INFO    MainThread:57203 [wandb_init.py:_log_setup():508] Logging internal logs to /home/johann/Desktop/GitHub repos/Master_thesis/wandb/run-20230715_102906-l6mlt1s3/logs/debug-internal.log
+2023-07-15 10:29:06,966 INFO    MainThread:57203 [wandb_init.py:init():547] calling init triggers
+2023-07-15 10:29:06,966 INFO    MainThread:57203 [wandb_init.py:init():554] wandb.init called with sweep_config: {}
+config: {'learning_rate': 0.0002, 'epochs': 200}
+2023-07-15 10:29:06,966 INFO    MainThread:57203 [wandb_init.py:init():571] re-initializing run, found existing run on stack: k4k2p9mk
+2023-07-15 10:29:06,968 INFO    MainThread:57203 [wandb_run.py:_finish():1893] finishing run johannanton/Cycle_GAN/k4k2p9mk
+2023-07-15 10:29:06,969 ERROR   MainThread:57203 [jupyter.py:save_history():437] Run pip install nbformat to save notebook history
+2023-07-15 10:29:06,969 INFO    MainThread:57203 [jupyter.py:save_ipynb():373] not saving jupyter notebook
+2023-07-15 10:29:06,969 INFO    MainThread:57203 [wandb_init.py:_jupyter_teardown():435] cleaning up jupyter logic
+2023-07-15 10:29:06,969 INFO    MainThread:57203 [wandb_run.py:_atexit_cleanup():2127] got exitcode: 0
+2023-07-15 10:29:06,969 INFO    MainThread:57203 [wandb_run.py:_restore():2110] restore
+2023-07-15 10:29:06,969 INFO    MainThread:57203 [wandb_run.py:_restore():2116] restore done
+2023-07-15 10:29:26,223 INFO    MainThread:57203 [wandb_init.py:init():596] starting backend
+2023-07-15 10:29:26,223 INFO    MainThread:57203 [wandb_init.py:init():600] setting up manager
+2023-07-15 10:29:26,225 INFO    MainThread:57203 [backend.py:_multiprocessing_setup():106] multiprocessing start_methods=fork,spawn,forkserver, using: spawn
+2023-07-15 10:29:26,226 INFO    MainThread:57203 [wandb_init.py:init():606] backend started and connected
+2023-07-15 10:29:26,227 INFO    MainThread:57203 [wandb_run.py:_label_probe_notebook():1238] probe notebook
+2023-07-15 10:29:26,227 INFO    MainThread:57203 [wandb_run.py:_label_probe_notebook():1248] Unable to probe notebook: 'NoneType' object has no attribute 'get'
+2023-07-15 10:29:26,227 INFO    MainThread:57203 [wandb_init.py:init():700] updated telemetry
+2023-07-15 10:29:26,322 INFO    MainThread:57203 [wandb_init.py:init():737] communicating run to backend with 60.0 second timeout
+2023-07-15 10:29:45,495 WARNING MainThread:57203 [wandb_init.py:init():1172] interrupted
+Traceback (most recent call last):
+  File "/home/johann/anaconda3/envs/pytorch/lib/python3.9/site-packages/wandb/sdk/wandb_init.py", line 1150, in init
+    run = wi.init()
+  File "/home/johann/anaconda3/envs/pytorch/lib/python3.9/site-packages/wandb/sdk/wandb_init.py", line 740, in init
+    result = run_init_handle.wait(
+  File "/home/johann/anaconda3/envs/pytorch/lib/python3.9/site-packages/wandb/sdk/lib/mailbox.py", line 283, in wait
+    found, abandoned = self._slot._get_and_clear(timeout=wait_timeout)
+  File "/home/johann/anaconda3/envs/pytorch/lib/python3.9/site-packages/wandb/sdk/lib/mailbox.py", line 130, in _get_and_clear
+    if self._wait(timeout=timeout):
+  File "/home/johann/anaconda3/envs/pytorch/lib/python3.9/site-packages/wandb/sdk/lib/mailbox.py", line 126, in _wait
+    return self._event.wait(timeout=timeout)
+  File "/home/johann/anaconda3/envs/pytorch/lib/python3.9/threading.py", line 581, in wait
+    signaled = self._cond.wait(timeout)
+  File "/home/johann/anaconda3/envs/pytorch/lib/python3.9/threading.py", line 316, in wait
+    gotit = waiter.acquire(True, timeout)
+KeyboardInterrupt
+2023-07-16 16:05:17,202 INFO    MainThread:57203 [wandb_setup.py:_flush():76] Current SDK version is 0.15.3
+2023-07-16 16:05:17,202 INFO    MainThread:57203 [wandb_setup.py:_flush():76] Configure stats pid to 57203
+2023-07-16 16:05:17,202 INFO    MainThread:57203 [wandb_setup.py:_flush():76] Loading settings from /home/johann/.config/wandb/settings
+2023-07-16 16:05:17,202 INFO    MainThread:57203 [wandb_setup.py:_flush():76] Loading settings from /home/johann/Desktop/GitHub repos/Master_thesis/wandb/settings
+2023-07-16 16:05:17,202 INFO    MainThread:57203 [wandb_setup.py:_flush():76] Loading settings from environment variables: {}
+2023-07-16 16:05:17,202 INFO    MainThread:57203 [wandb_setup.py:_flush():76] Applying setup settings: {'_disable_service': False}
+2023-07-16 16:05:17,202 INFO    MainThread:57203 [wandb_setup.py:_flush():76] Inferring run settings from compute environment: {'program': '<python with no main file>'}
+2023-07-16 16:05:17,202 INFO    MainThread:57203 [wandb_init.py:_log_setup():507] Logging user logs to /home/johann/Desktop/GitHub repos/Master_thesis/wandb/run-20230716_160517-kyfopswl/logs/debug.log
+2023-07-16 16:05:17,202 INFO    MainThread:57203 [wandb_init.py:_log_setup():508] Logging internal logs to /home/johann/Desktop/GitHub repos/Master_thesis/wandb/run-20230716_160517-kyfopswl/logs/debug-internal.log
+2023-07-16 16:05:17,202 INFO    MainThread:57203 [wandb_init.py:_jupyter_setup():453] configuring jupyter hooks <wandb.sdk.wandb_init._WandbInit object at 0x7f09ca6968e0>
+2023-07-16 16:05:17,203 INFO    MainThread:57203 [wandb_init.py:init():547] calling init triggers
+2023-07-16 16:05:17,203 INFO    MainThread:57203 [wandb_init.py:init():554] wandb.init called with sweep_config: {}
+config: {'learning_rate': 0.0002, 'epochs': 200}
+2023-07-16 16:05:17,203 INFO    MainThread:57203 [wandb_init.py:init():596] starting backend
+2023-07-16 16:05:17,203 INFO    MainThread:57203 [wandb_init.py:init():600] setting up manager
+2023-07-16 16:05:17,204 INFO    MainThread:57203 [backend.py:_multiprocessing_setup():106] multiprocessing start_methods=fork,spawn,forkserver, using: spawn
+2023-07-16 16:05:17,205 INFO    MainThread:57203 [wandb_init.py:init():606] backend started and connected
+2023-07-16 16:05:17,206 INFO    MainThread:57203 [wandb_run.py:_label_probe_notebook():1238] probe notebook
+2023-07-16 16:05:17,206 INFO    MainThread:57203 [wandb_run.py:_label_probe_notebook():1248] Unable to probe notebook: 'NoneType' object has no attribute 'get'
+2023-07-16 16:05:17,206 INFO    MainThread:57203 [wandb_init.py:init():700] updated telemetry
+2023-07-16 16:05:17,261 INFO    MainThread:57203 [wandb_init.py:init():737] communicating run to backend with 60.0 second timeout
+2023-07-16 16:05:25,253 WARNING MainThread:57203 [wandb_init.py:init():1172] interrupted
+Traceback (most recent call last):
+  File "/home/johann/anaconda3/envs/pytorch/lib/python3.9/site-packages/wandb/sdk/wandb_init.py", line 1150, in init
+    run = wi.init()
+  File "/home/johann/anaconda3/envs/pytorch/lib/python3.9/site-packages/wandb/sdk/wandb_init.py", line 740, in init
+    result = run_init_handle.wait(
+  File "/home/johann/anaconda3/envs/pytorch/lib/python3.9/site-packages/wandb/sdk/lib/mailbox.py", line 283, in wait
+    found, abandoned = self._slot._get_and_clear(timeout=wait_timeout)
+  File "/home/johann/anaconda3/envs/pytorch/lib/python3.9/site-packages/wandb/sdk/lib/mailbox.py", line 130, in _get_and_clear
+    if self._wait(timeout=timeout):
+  File "/home/johann/anaconda3/envs/pytorch/lib/python3.9/site-packages/wandb/sdk/lib/mailbox.py", line 126, in _wait
+    return self._event.wait(timeout=timeout)
+  File "/home/johann/anaconda3/envs/pytorch/lib/python3.9/threading.py", line 581, in wait
+    signaled = self._cond.wait(timeout)
+  File "/home/johann/anaconda3/envs/pytorch/lib/python3.9/threading.py", line 316, in wait
+    gotit = waiter.acquire(True, timeout)
+KeyboardInterrupt

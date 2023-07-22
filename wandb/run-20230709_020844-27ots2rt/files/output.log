@@ -1,0 +1,9 @@
+
+
+
+  0%|          | 1/200 [08:56<29:38:53, 536.35s/it]
+Test animal(s): [3, 4, 8, 11, 17]
+Different animal IDs after removing those that are in the test dataset:  20
+Train data shape: (1506963, 14)
+Test data shape: (615168, 14)
+The test dataset is 28.98821986013116 percent of the whole data:

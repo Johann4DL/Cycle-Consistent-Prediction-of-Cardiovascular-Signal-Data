@@ -1,0 +1,58 @@
+
+
+
+  0%|          | 1/200 [02:40<8:50:55, 160.08s/it]
+=> Loading checkpoint from location:  /Checkpoints/Basic_Generator/Epo200_Dec100_DL02/gen_target_DL02_200_LRD100.pth.tar
+=> Loading checkpoint from location:  /Checkpoits/Basic_Generator/Epo200_Dec100_DL02/gen_target_DL02_200_LRD100.pth.tar
+=> Loading checkpoint from location:  /Checkpoints/Basic_Generator/Epo200_Dec100_DL02/gen_target_DL02_200_LRD100.pth.tar
+=> Loading checkpoint from location:  */Checkpoints/Basic_Generator/Epo200_Dec100_DL02/gen_target_DL02_200_LRD100.pth.tar
+=> Loading checkpoint from location:  Checkpoints/Basic_Generator/Epo200_Dec100_DL02/gen_target_DL02_200_LRD100.pth.tar
+=> Loading checkpoint from location:  Checkpoints/Basic_Generator/Epo200_Dec100_DL02/gen_source_DL02_200_LRD100.pth.tar
+=> Loading checkpoint from location:  Checkpoints/Basic_Generator/Epo200_Dec100_DL02/disc_target_DL02_200_LRD100.pth.tar
+=> Loading checkpoint from location:  Checkpoints/Basic_Generator/Epo200_Dec100_DL02/disc_source_DL02_200_LRD100.pth.tar
+Average L1 loss of source signals: 1.1424453540373656
+Average L1 loss of target signals: 1.379136365854134
+Min and max loss of source signals: (0.6809631586074829, 1.6417953968048096)
+Min and max loss of target signals: (0.7286617755889893, 2.047921895980835)
+Median loss of source signals: 1.1314049363136292
+Median loss of target signals: 1.3737275004386902
+[0.]
+=> Loading checkpoint from location:  Checkpoints/Basic_Generator/Epo200_Dec100_DL02/gen_target_DL02_200_LRD100.pth.tar
+=> Loading checkpoint from location:  Checkpoints/Basic_Generator/Epo200_Dec100_DL02/gen_source_DL02_200_LRD100.pth.tar
+=> Loading checkpoint from location:  Checkpoints/Basic_Generator/Epo200_Dec100_DL02/disc_target_DL02_200_LRD100.pth.tar
+=> Loading checkpoint from location:  Checkpoints/Basic_Generator/Epo200_Dec100_DL02/disc_source_DL02_200_LRD100.pth.tar
+Average L1 loss of source signals: 1.160956883935605
+Average L1 loss of target signals: 1.4109642413713164
+Min and max loss of source signals: (0.7340661287307739, 1.6222201585769653)
+Min and max loss of target signals: (0.7978115081787109, 2.2401864528656006)
+Median loss of source signals: 1.162120521068573
+Median loss of target signals: 1.3902996182441711
+Average L1 loss of source signals: 1.1554029559685013
+Average L1 loss of target signals: 1.398811902939263
+Min and max loss of source signals: (0.7845908999443054, 1.5954396724700928)
+Min and max loss of target signals: (0.6374574899673462, 2.1752214431762695)
+Median loss of source signals: 1.1538809537887573
+Median loss of target signals: 1.3952524065971375
+=> Loading checkpoint from location:  Checkpoints/Basic_Generator/Epo200_Dec100_DL05/gen_target_DL05_200_LRD100.pth.tar
+=> Loading checkpoint from location:  Checkpoints/Basic_Generator/Epo200_Dec100_DL05/gen_source_DL05_200_LRD100.pth.tar
+=> Loading checkpoint from location:  Checkpoints/Basic_Generator/Epo200_Dec100_DL05/disc_target_DL05_200_LRD100.pth.tar
+=> Loading checkpoint from location:  Checkpoints/Basic_Generator/Epo200_Dec100_DL05/gen_target_DL05_200_LRD100.pth.tar
+=> Loading checkpoint from location:  Checkpoints/Basic_Generator/Epo200_Dec100_DL05/gen_source_DL05_200_LRD100.pth.tar
+=> Loading checkpoint from location:  Checkpoints/Basic_Generator/Epo200_Dec100_DL05/disc_target_DL05_200_LRD100.pth.tar
+=> Loading checkpoint from location:  Checkpoints/Basic_Generator/Epo200_Dec100_DL05/gen_target_DL05_200_LRD100.pth.tar
+=> Loading checkpoint from location:  Checkpoints/Basic_Generator/Epo200_Dec100_DL05/gen_source_DL05_200_LRD100.pth.tar
+=> Loading checkpoint from location:  Checkpoints/Basic_Generator/Epo200_Dec100_DL05/gen_target_DL05_200_LRD100.pth.tar
+=> Loading checkpoint from location:  Checkpoints/Basic_Generator/Epo200_Dec100_DL05/gen_source_DL05_200_LRD100.pth.tar
+Average L1 loss of source signals: 2.199015375921282
+Average L1 loss of target signals: 2.4010953945628666
+Min and max loss of source signals: (1.3429145812988281, 2.8566436767578125)
+Min and max loss of target signals: (1.5693061351776123, 3.233024835586548)
+Median loss of source signals: 2.2002917528152466
+Median loss of target signals: 2.4242032766342163
+=> Loading checkpoint from location:  Checkpoints/Basic_Generator/Epo200_Dec100/gen_target_BG_200_LRD100.pth.tar
+=> Loading checkpoint from location:  Checkpoints/Basic_Generator/Epo200_Dec100/gen_source_BG_200_LRD100.pth.tar
+Average L1 loss of source signals: 4.792067908432524
+Average L1 loss of target signals: 3.0489560876862476
+Min and max loss of source signals: (3.5683670043945312, 5.655819892883301)
+Min and max loss of target signals: (1.8307245969772339, 3.70796537399292)
+Median loss of source signals: 4.837766647338867

@@ -1,0 +1,34 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 12%|█▏        | 23/200 [2:32:09<19:31:00, 396.95s/it]
+Average L1 loss of source signals: 0.8964390039195617
+Average L1 loss of target signals: 0.8304957909385363
+Min and max loss of source signals: (0.523687481880188, 1.3443326950073242)
+Min and max loss of target signals: (0.37960684299468994, 1.5711365938186646)
+Median loss of source signals: 0.9025146961212158
+Median loss of target signals: 0.8305744528770447
+
+  0%|          | 0/187 [00:16<?, ?it/s]
