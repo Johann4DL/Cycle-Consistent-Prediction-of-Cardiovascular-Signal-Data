@@ -1,0 +1,322 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+100%|██████████| 200/200 [35:47:48<00:00, 644.34s/it]
+Average L1 loss of source signals: 1.1444486915797416
+Average L1 loss of target signals: 1.2327223434362036
+Min and max loss of source signals: (0.3842039406299591, 2.109851837158203)
+Min and max loss of target signals: (0.45649072527885437, 2.1797776222229004)
+Median loss of source signals: 1.1441726088523865
+Median loss of target signals: 1.2234814167022705
+Average L1 loss of source signals: 1.155147208225059
+Average L1 loss of target signals: 1.2763751330277209
+Min and max loss of source signals: (0.5809404253959656, 1.5022015571594238)
+Min and max loss of target signals: (0.7463937401771545, 1.9717578887939453)
+Median loss of source signals: 1.162641167640686
+Median loss of target signals: 1.2215946912765503
+Average L1 loss of source signals: 1.1651567899372022
+Average L1 loss of target signals: 1.2870791584341224
+Min and max loss of source signals: (0.6304038763046265, 1.8184735774993896)
+Min and max loss of target signals: (0.7691196203231812, 2.030170202255249)
+Median loss of source signals: 1.1654298305511475
+Median loss of target signals: 1.2270923852920532
+Average L1 loss of source signals: 1.1423430867995108
+Average L1 loss of target signals: 1.2451004287525715
+Min and max loss of source signals: (0.2843087911605835, 2.0370402336120605)
+Min and max loss of target signals: (0.4360355734825134, 1.8621045351028442)
+Median loss of source signals: 1.1502101421356201
+Median loss of target signals: 1.2381869554519653
+Average L1 loss of source signals: 1.1734288917935414
+Average L1 loss of target signals: 1.2583295171675475
+Min and max loss of source signals: (0.5109224319458008, 1.9398928880691528)
+Min and max loss of target signals: (0.5379952192306519, 2.000152587890625)
+Median loss of source signals: 1.173853874206543
+Median loss of target signals: 1.245500087738037
+Average L1 loss of source signals: 1.1170212867674907
+Average L1 loss of target signals: 1.1995734399524183
+Min and max loss of source signals: (0.5939690470695496, 1.5175917148590088)
+Min and max loss of target signals: (0.5757956504821777, 2.241694211959839)
+Median loss of source signals: 1.1227871179580688
+Median loss of target signals: 1.1950417757034302
+Average L1 loss of source signals: 1.1114188185071243
+Average L1 loss of target signals: 1.2260418661377008
+Min and max loss of source signals: (0.5563492178916931, 1.6395955085754395)
+Min and max loss of target signals: (0.5801407694816589, 2.1260881423950195)
+Median loss of source signals: 1.1141397356987
+Median loss of target signals: 1.2180122137069702
+Average L1 loss of source signals: 1.125045248171492
+Average L1 loss of target signals: 1.2428637824772968
+Min and max loss of source signals: (0.6369505524635315, 1.6047825813293457)
+Min and max loss of target signals: (0.6417328119277954, 1.825667142868042)
+Median loss of source signals: 1.130713403224945
+Median loss of target signals: 1.2371500730514526
+Average L1 loss of source signals: 1.162798176322779
+Average L1 loss of target signals: 1.2503080039133454
+Min and max loss of source signals: (0.39105963706970215, 2.037454128265381)
+Min and max loss of target signals: (0.44481486082077026, 2.1012837886810303)
+Median loss of source signals: 1.1594333052635193
+Median loss of target signals: 1.2390965223312378
+Average L1 loss of source signals: 1.1431544415544772
+Average L1 loss of target signals: 1.2003217935562134
+Min and max loss of source signals: (0.5651352405548096, 1.8735687732696533)
+Min and max loss of target signals: (0.5141550302505493, 2.119903087615967)
+Median loss of source signals: 1.1359655857086182
+Median loss of target signals: 1.2021485567092896
+Average L1 loss of source signals: 1.1169926084141781
+Average L1 loss of target signals: 1.2387964272471712
+Min and max loss of source signals: (0.607613205909729, 1.5390865802764893)
+Min and max loss of target signals: (0.6016735434532166, 2.214177370071411)
+Median loss of source signals: 1.1205865144729614
+Median loss of target signals: 1.2299829125404358
+Average L1 loss of source signals: 1.1202783535665541
+Average L1 loss of target signals: 1.2366568294581535
+Min and max loss of source signals: (0.5764933228492737, 1.7300429344177246)
+Min and max loss of target signals: (0.6129794716835022, 1.8978440761566162)
+Median loss of source signals: 1.1229789853096008
+Median loss of target signals: 1.2281031608581543
+Average L1 loss of source signals: 1.1555363288597977
+Average L1 loss of target signals: 1.243799187172791
+Min and max loss of source signals: (0.3703153729438782, 2.094283103942871)
+Min and max loss of target signals: (0.4662485718727112, 2.2197115421295166)
+Median loss of source signals: 1.154828429222107
+Median loss of target signals: 1.2369922995567322
+Average L1 loss of source signals: 1.1634144990493414
+Average L1 loss of target signals: 1.2909240123093304
+Min and max loss of source signals: (0.8399295210838318, 1.7439970970153809)
+Min and max loss of target signals: (0.8385478854179382, 1.9810843467712402)
+Median loss of source signals: 1.1738107204437256
+Median loss of target signals: 1.243341088294983
+Average L1 loss of source signals: 1.1423084265626187
+Average L1 loss of target signals: 1.233233001129363
+Min and max loss of source signals: (0.32691702246665955, 1.9876198768615723)
+Min and max loss of target signals: (0.4104940593242645, 2.269118309020996)
+Median loss of source signals: 1.1448749899864197
+Median loss of target signals: 1.2291951179504395
+Average L1 loss of source signals: 1.1079859508622076
+Average L1 loss of target signals: 1.19443958622794
+Min and max loss of source signals: (0.565455436706543, 1.8367705345153809)
+Min and max loss of target signals: (0.5481188893318176, 2.2121400833129883)
+Median loss of source signals: 1.1058920621871948
+Median loss of target signals: 1.2014209628105164
+Average L1 loss of source signals: 1.150853744074407
+Average L1 loss of target signals: 1.2480844906488215
+Min and max loss of source signals: (0.3845369517803192, 1.9715238809585571)
+Min and max loss of target signals: (0.5291030406951904, 2.0839271545410156)
+Median loss of source signals: 1.1612104177474976
+Median loss of target signals: 1.2543463706970215
+Average L1 loss of source signals: 1.166986422932939
+Average L1 loss of target signals: 1.2524141254973358
+Min and max loss of source signals: (0.515536904335022, 1.8188591003417969)
+Min and max loss of target signals: (0.47549569606781006, 1.9605040550231934)
+Median loss of source signals: 1.1677557826042175
+Median loss of target signals: 1.2322580218315125
+Average L1 loss of source signals: 1.12266937540381
+Average L1 loss of target signals: 1.220466296317169
+Min and max loss of source signals: (0.5641797184944153, 1.598404884338379)
+Min and max loss of target signals: (0.6401123404502869, 2.2292206287384033)
+Median loss of source signals: 1.130294144153595
+Median loss of target signals: 1.1997719407081604
+Average L1 loss of source signals: 1.123842645728705
+Average L1 loss of target signals: 1.2262886984675538
+Min and max loss of source signals: (0.5936603546142578, 1.7138917446136475)
+Min and max loss of target signals: (0.559715747833252, 2.0082173347473145)
+Median loss of source signals: 1.1282321214675903
+Median loss of target signals: 1.2304150462150574

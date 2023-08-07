@@ -439,7 +439,7 @@ class OneHotGenerator(nn.Module):
         self.maxpool = nn.MaxPool1d((2))  
 
         self.ReshapeDown = conv_layer(256, 1)
-        self.DownFCLayer = nn.Linear(275, 256)
+        self.DownFCLayer = nn.Linear(271, 256)
 
         self.down_conv1 = double_conv_pad(INPUTCHANNELS, 32) 
         self.down_conv2 = double_conv_pad(32, 64) 
@@ -465,7 +465,7 @@ class OneHotGenerator(nn.Module):
             iS = F.one_hot(source_intervention, num_classes=8).type(torch.FloatTensor).to(DEVICE)  # iS shape:  torch.Size([1, 256, 8])
             pS = self.ReshapeDown(pS)   # pS shape:  torch.Size([1, 1, 7])
             iS = self.ReshapeDown(iS)   # iS shape:  torch.Size([1, 1, 12])         
-            input = torch.cat([input, pS, iS], 2)   # input shape:  torch.Size([1, 1, 275])
+            input = torch.cat([input, pS, iS], 2)   # input shape:  torch.Size([1, 1, 271])
             input = self.DownFCLayer(input)    # input shape:  torch.Size([1, 1, 256])
 
         x1 = self.down_conv1(input)   
