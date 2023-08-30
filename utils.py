@@ -8,6 +8,8 @@ from sklearn.preprocessing import StandardScaler
 import matplotlib.pyplot as plt
 import utils
 
+
+
 def save_checkpoint(model, optimizer, path="my_checkpoint.pth.tar"):
     print("=> Saving checkpoint at location: ", path)
     checkpoint = {
@@ -15,6 +17,7 @@ def save_checkpoint(model, optimizer, path="my_checkpoint.pth.tar"):
         "optimizer": optimizer.state_dict(),
     }
     torch.save(checkpoint, path)
+
 
 
 def load_checkpoint(checkpoint_file, model, optimizer, lr):
@@ -27,6 +30,7 @@ def load_checkpoint(checkpoint_file, model, optimizer, lr):
     # and it will lead to many hours of debugging \:
     for param_group in optimizer.param_groups:
         param_group["lr"] = lr
+
 
 
 def save_predictions(loader, gen_A2B, gen_B2A, DEVICE):
@@ -52,6 +56,8 @@ def save_predictions(loader, gen_A2B, gen_B2A, DEVICE):
                         'sig_B': sig_B.cpu().numpy(), 'fake_B': fake_B.cpu().numpy()})
         df.to_csv('generated_signals.csv', index=True)
 
+
+
 def load_csv(path):
     '''
     Load the data from a csv and return a dataframe
@@ -65,6 +71,7 @@ def load_csv(path):
     return frame
 
 
+
 def drop_cols(df):
     '''
     Drop the columns that are not relevant to the task
@@ -75,6 +82,7 @@ def drop_cols(df):
     return df
 
 
+
 def remove_strings(df):
     '''
     Removes all strings that remain after dropping all unrelevant columns in the data. Works only if you called 'drop_cols' first
@@ -82,8 +90,6 @@ def remove_strings(df):
 
     df_cols = ['LVtot_kalibriert', 'LVP', 'AoP', 'AoQ', 'RVtot_kalibriert', 'VADspeed', 'VadQ', 'VADcurrent', 'Phasenzuordnung', 
             'LVtot', 'RVtot', 'animal', 'contractility', 'intervention']
-    
-    # df_cols = ['LVtot_kalibriert', 'LVP', 'AoP', 'RVtot_kalibriert', 'VadQ', 'VADcurrent', 'Phasenzuordnung', 'animal', 'intervention']
 
     df = df.to_numpy() # convert to numpy
 
@@ -103,6 +109,7 @@ def remove_strings(df):
     return df
 
 
+
 def groupedAvg(myArray, N=10):
     '''
     Subsamples an array by N
@@ -112,14 +119,13 @@ def groupedAvg(myArray, N=10):
     return result
 
 
+
 def subsample(df, rate):
     '''
     Subsample a dataframe by the rate using 'groupedAvg'
     '''
     columns = ['LVtot_kalibriert', 'LVP', 'AoP', 'AoQ', 'RVtot_kalibriert', 'VADspeed', 'VadQ', 
-            'VADcurrent', 'Phasenzuordnung', 'LVtot', 'RVtot', 'animal', 'contractility', 'intervention']
-    # columns = ['LVtot_kalibriert', 'LVP', 'AoP', 'RVtot_kalibriert', 'VadQ', 'VADcurrent', 'Phasenzuordnung', 'animal', 'intervention']
-    
+            'VADcurrent', 'Phasenzuordnung', 'LVtot', 'RVtot', 'animal', 'contractility', 'intervention']   
 
     arr = df.to_numpy()
     arr = groupedAvg(arr, N=rate)
@@ -129,6 +135,7 @@ def subsample(df, rate):
     df['intervention'] = df['intervention'].astype(int)
     df['intervention'] = df['intervention'].astype(float)
     return df
+
 
 
 def visualize(df, variables, length):
@@ -149,58 +156,7 @@ def visualize(df, variables, length):
     axs[6].set_title(variables[6])
     plt.show()
 
-# def normalize_by_all_phases(df, scaler):
-#     # intervntion, Phasenzuordnung and animal should be in another dataframe before the data is normalized
-#     # df_IPA = df[['intervention', 'Phasenzuordnung', 'animal']]
-#     # df = df.drop(columns=['intervention', 'Phasenzuordnung', 'animal'])  # drop columns in original dataframe
 
-#     #df_cols = ['LVtot_kalibriert', 'LVP', 'AoP', 'AoQ', 'RVtot_kalibriert', 'VADspeed', 'VadQ', 'VADcurrent', 'LVtot', 'RVtot']
-#     # df_cols = ['LVtot_kalibriert', 'LVP', 'AoP', 'RVtot_kalibriert', 'VadQ', 'VADcurrent']
-#     # column names
-#     cols = df.columns.tolist()
-#     df = df.to_numpy()  #convert to numpy
-
-#     # scale the data
-#     scaler.fit(df)
-#     transformed_data = scaler.transform(df)
-#     df = pd.DataFrame(transformed_data, columns=cols)  # convert to dataframe
-#     # df = df.join(df_IPA) 
-#     return df
-
-# def normalize_by_phase1(df, scaler):
-#     '''
-#     Normalize the data by the first phase
-#     '''
-#     # column names
-#     cols = df.columns.tolist()
-#     # select data von Phasenzuordnung == 1
-#     phase_1 = df.loc[df['Phasenzuordnung'] == 1]
-#     phase_1 = phase_1.to_numpy() 
-#     df = df.to_numpy()  #convert to numpy
-#     # scale the data only with the first phase
-#     scaler.fit(phase_1)
-#     transformed_data = scaler.transform(df)
-#     df = pd.DataFrame(transformed_data, columns=cols)  # convert to dataframe
-#     # df = df.join(df_IPA) 
-#     return df
-
-# def normalize_df(df, scaler):
-#     df_IPA = df[['intervention', 'Phasenzuordnung', 'animal']]
-#     df_temp = pd.DataFrame()
-#     # scaler = StandardScaler()
-
-#     for animal in df['animal'].unique():
-#         # split df into separate dataframes for each animal
-#         df_animal = df.loc[df['animal'] == animal]
-#         df_animal = utils.normalize_by_phase1(df_animal, scaler) # normalize by phase 1
-#         # append df_animal to df_temp
-#         df_temp = pd.concat([df_temp, df_animal], axis=0, ignore_index=True)
-
-#     df = df_temp
-#     df = df.drop(columns=['intervention', 'Phasenzuordnung', 'animal'])
-#     df.dropna(inplace=True)
-#     df = df.join(df_IPA)
-#     return df
 
 def get_data_overview(df):
     print('Shape of DataFrame', df.shape)
@@ -209,7 +165,9 @@ def get_data_overview(df):
     print('VadQ: mean: ', df["VadQ" ].mean(), 'std: ', df["VadQ" ].std(), 'min: ', df["VadQ" ].min(), 'max: ', df["VadQ" ].max(), 'median: ', df["VadQ" ].median())
     print('LVP: mean: ', df["LVP" ].mean(), 'std: ', df["LVP" ].std(), 'min: ', df["LVP" ].min(), 'max: ', df["LVP" ].max(), 'median: ', df["LVP" ].median())
     print('LVtot_kalibriert: mean: ', df["LVtot_kalibriert" ].mean(), 'std: ', df["LVtot_kalibriert" ].std(), 'min: ', df["LVtot_kalibriert" ].min(), 'max: ', df["LVtot_kalibriert" ].max(), 'median: ', df["LVtot_kalibriert" ].median())
-    
+
+
+
 def normalize_by_all_phases(df, scaler):
     '''
     Normalize the data by the whole dataframe
@@ -220,6 +178,8 @@ def normalize_by_all_phases(df, scaler):
     transformed_data = scaler.transform(df)
     df = pd.DataFrame(transformed_data, columns=cols)  
     return df
+
+
 
 def normalize_by_phase1(df, scaler):
     '''
@@ -233,6 +193,8 @@ def normalize_by_phase1(df, scaler):
     transformed_data = scaler.transform(df)
     df = pd.DataFrame(transformed_data, columns=cols)  
     return df
+
+
 
 def normalize(df, scaler, phase1 = True):
     df_IPA = df[['intervention', 'Phasenzuordnung', 'animal','contractility']]
@@ -254,6 +216,8 @@ def normalize(df, scaler, phase1 = True):
     df = df.join(df_IPA)
     return df
 
+
+
 def gen_signals(fake_target, fake_source, target, source):
     fake_target = fake_target.reshape(-1)
     fake_source = fake_source.reshape(-1)
@@ -273,6 +237,8 @@ def gen_signals(fake_target, fake_source, target, source):
     ax[1].set_ylabel('Loss')
     ax[1].legend()
 
+
+
 def discriminator_loss(disc, reals, fakes):
     # calculate how close reals are to being classified as real
     real_loss = nn.MSELoss(disc(reals), torch.ones_like(disc(reals)))
@@ -282,16 +248,13 @@ def discriminator_loss(disc, reals, fakes):
     return (real_loss + fake_loss) / 2
 
 
+
 # @torch.cuda.amp.autocast()
 def get_disc_loss(source, target, disc_source, disc_target, fake_source, fake_target
                     ):
     """
     Return the loss of the discriminator given inputs.
     """
-    # generate fakes
-    # with torch.no_grad():
-    #     fake_B = gen_B(sig_A, phase, intervention).detach()
-    #     fake_A = gen_A(sig_B, phase, intervention).detach()
     
     # discriminator loss
     disc_target_loss = utils.discriminator_loss(disc_target, target, fake_target)

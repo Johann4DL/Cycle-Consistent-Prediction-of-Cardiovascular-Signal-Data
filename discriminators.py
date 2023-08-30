@@ -58,38 +58,24 @@ class PatchDiscriminator(nn.Module):
 
 
     def forward(self, input):
-        #print('input shape')
-        #print(input.shape)      # torch.Size([1, 1, 256])
-        x = self.conv1(input)
-        #print(x.shape)          # torch.Size([1, 32, 127])
-        x = self.conv2(x)
-        #print(x.shape)          # torch.Size([1, 64, 63])
-        x = self.conv3(x)
-        #print(x.shape)          # torch.Size([1, 128, 31])
-        x = self.conv4(x)
-        #print(x.shape)          # torch.Size([1, 256, 15])
-        x = self.conv5(x)
-        #print(x.shape)          # torch.Size([1, 1, 7])
-        x = self.out(x)
-        #print(x.shape)          # torch.Size([1, 1, 7])
+        # input                  # torch.Size([1, 1, 256])
+        x = self.conv1(input)    # torch.Size([1, 32, 127])
+        x = self.conv2(x)        # torch.Size([1, 64, 63])
+        x = self.conv3(x)        # torch.Size([1, 128, 31])
+        x = self.conv4(x)        # torch.Size([1, 256, 15])
+        x = self.conv5(x)        # torch.Size([1, 1, 7])
+        x = self.out(x)          # torch.Size([1, 1, 7])
         return x
     
 
-# def Conv_block(in_channels, out_channels, kernel_size , stride):
-#     return nn.Sequential(
-#         nn.Conv1d(in_channels, out_channels, kernel_size, stride),
-#         nn.BatchNorm1d(out_channels),
-#         nn.LeakyReLU(inplace=False),
-#         nn.Dropout1d(p=0.1, inplace=False),
-#     )
 
 def Conv_block_no_norm(in_channels, out_channels, kernel_size , stride):
     return nn.Sequential(
         nn.Conv1d(in_channels, out_channels, kernel_size, stride),
-        #nn.BatchNorm1d(out_channels),
         nn.LeakyReLU(inplace=False),
         nn.Dropout1d(p=0.1, inplace=False),
     )
+
 
 class SampleDiscriminator(nn.Module):
     def __init__(self, CHANNELS):
@@ -113,37 +99,3 @@ class SampleDiscriminator(nn.Module):
         x = self.conv5(x)      # torch.Size([1, 1, 1])     
         x = self.out(x)        # torch.Size([1, 1, 1])     
         return x
-
-
-# class SampleDiscriminator(nn.Module):
-#     def __init__(self, CHANNELS):
-#         super(SampleDiscriminator, self).__init__()
-
-        
-#         self.conv1 = Conv_block(in_channels= CHANNELS, out_channels= 32, kernel_size = 4, stride = 3) 
-#         self.conv2 = Conv_block(in_channels= 32, out_channels= 64, kernel_size = 4, stride = 3)       
-#         self.conv3 = Conv_block(in_channels= 64, out_channels= 128, kernel_size = 4, stride = 3)      
-#         self.conv4 = Conv_block(in_channels= 128, out_channels= 256, kernel_size = 3, stride = 2)     
-#         self.conv5 = Conv_block_no_norm(in_channels= 256, out_channels= 1, kernel_size = 4, stride = 2) 
-        
-#         self.out = nn.Sigmoid()             
-
-
-#     # input shape
-#     # torch.Size([1, 1, 256])
-#     # torch.Size([1, 32, 85])
-#     # torch.Size([1, 64, 28])
-#     # torch.Size([1, 128, 9])
-#     # torch.Size([1, 256, 4])
-#     # torch.Size([1, 1, 1])
-#     # torch.Size([1, 1, 1])
-
-#     def forward(self, input):    
-#         # input: torch.Size([1, 1, 256]) 
-#         x = self.conv1(input)  # torch.Size([1, 32, 85])       
-#         x = self.conv2(x)      # torch.Size([1, 64, 28])     
-#         x = self.conv3(x)      # torch.Size([1, 128, 9])      
-#         x = self.conv4(x)      # torch.Size([1, 256, 4]) 
-#         x = self.conv5(x)      # torch.Size([1, 1, 1])     
-#         x = self.out(x)        # torch.Size([1, 1, 1])     
-#         return x
