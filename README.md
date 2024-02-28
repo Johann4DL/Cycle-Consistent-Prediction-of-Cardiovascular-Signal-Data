@@ -1,8 +1,8 @@
-![Cycle GAN](https://github.com/Johann4DL/Cycle-Consistent-Prediction-of-Cardiovascular-Signal-Data/assets/103281292/24028dd2-1a01-4cb0-9371-548b84df38b8)
-
 Master Thesis: Cycle-Consistent Prediction of Cardiovascular Signal Data 
 
 [Master thesis.pdf](https://github.com/Johann4DL/Cycle-Consistent-Prediction-of-Cardiovascular-Signal-Data/files/14426925/Master.thesis.pdf)
+
+![Cycle GAN](https://github.com/Johann4DL/Cycle-Consistent-Prediction-of-Cardiovascular-Signal-Data/assets/103281292/24028dd2-1a01-4cb0-9371-548b84df38b8)
 
 The code in this repository contains all the code that was used to generate the results of the aforementioned master thesis. Unfortunately, the data has to remain private, which prevents other people (except for myself and my supervisors) from running the code out of the box.
 
