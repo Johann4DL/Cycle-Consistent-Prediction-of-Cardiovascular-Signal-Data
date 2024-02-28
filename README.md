@@ -6,9 +6,9 @@ Master Thesis: Cycle-Consistent Prediction of Cardiovascular Signal Data
 
 The code in this repository contains all the code that was used to generate the results of the aforementioned master thesis. Unfortunately, the data has to remain private, which prevents other people (except for myself and my supervisors) from running the code out of the box.
 
-generators.py and discriminators.py contain the model architectures of the implemented generators and discriminators. 
+`generators.py` and `discriminators.py` contain the model architectures of the implemented generators and discriminators. 
 
-utils.py and create_dataset.py contain additional helper functions.
+`utils.py` and `create_dataset.py` contain additional helper functions.
 
 The data preprocessing, as well as the training runs of all the experiments, can be found in the notebooks.
 
